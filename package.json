@@ -1,0 +1,30 @@
+{
+    "name": "@bryanchu10/create-template-ts",
+    "type": "module",
+    "version": "1.0.0",
+    "description": "Scaffold a modular TypeScript project for scripts and tooling",
+    "bin": "./dist/index.js",
+    "files": [
+        "dist",
+        "template"
+    ],
+    "scripts": {
+        "dev": "tsx watch src/index.ts",
+        "check": "tsc --noEmit",
+        "build": "rolldown -c",
+        "lint": "eslint",
+        "lint:fix": "eslint --fix"
+    },
+    "dependencies": {
+        "@clack/prompts": "^1.4.0",
+        "ts-pattern": "^5.9.0"
+    },
+    "devDependencies": {
+        "@antfu/eslint-config": "^9.0.0",
+        "@types/node": "^24.12.4",
+        "eslint": "^10.4.0",
+        "rolldown": "^1.0.3",
+        "tsx": "^4.22.3",
+        "typescript": "^6.0.3"
+    }
+}

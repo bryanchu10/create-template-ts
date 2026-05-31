@@ -1,0 +1,10 @@
+{
+    "type": "module",
+    "scripts": {
+        "dev": "tsx watch src/index.ts",
+        "check": "tsc --noEmit",
+        "build": "rolldown -c",
+        "lint": "eslint",
+        "lint:fix": "eslint --fix"
+    }
+}
