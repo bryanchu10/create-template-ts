@@ -1,7 +1,7 @@
 {
     "name": "@bryanchu10/create-template-ts",
     "type": "module",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Scaffold a modular TypeScript project for scripts and tooling",
     "repository": {
         "type": "git",
