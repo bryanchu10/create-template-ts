@@ -23,4 +23,10 @@ export default antfu(
             "pnpm/yaml-enforce-settings": ["error", { settings: { shellEmulator: true } }],
         },
     },
+    {
+        files: ["**/*.yml", "**/*.yaml"],
+        rules: {
+            "yaml/indent": ["error", 2],
+        },
+    },
 );
