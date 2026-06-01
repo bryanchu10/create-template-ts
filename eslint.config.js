@@ -18,6 +18,15 @@ export default antfu(
         },
     },
     {
+        rules: {
+            "new-cap": ["error", {
+                capIsNew: true,
+                newIsCap: true,
+                properties: true,
+            }],
+        },
+    },
+    {
         files: ["pnpm-workspace.yaml"],
         rules: {
             "pnpm/yaml-enforce-settings": ["error", { settings: { shellEmulator: true } }],
