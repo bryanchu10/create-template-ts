@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "@clack/prompts": "^1.4.0",
+        "neverthrow": "^8.2.0",
         "ts-pattern": "^5.9.0"
     },
     "devDependencies": {

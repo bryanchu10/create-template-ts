@@ -1,5 +1,6 @@
 const DEPS = [
     "ts-pattern",
+    "neverthrow",
 ] as const;
 
 const DEV_DEPS = [

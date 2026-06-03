@@ -1,7 +1,8 @@
 import { cpSync, existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { basename, join } from "node:path";
 import { exit, version } from "node:process";
-import { intro, outro, spinner } from "@clack/prompts";
+import { cancel, intro, outro, spinner } from "@clack/prompts";
+import { fromThrowable, ok, Result } from "neverthrow";
 import { DEPS, DEV_DEPS } from "@/constants";
 import { getLatestVer, getProjectName, resolveNewDir } from "./utils";
 
@@ -11,62 +12,89 @@ interface PackageJson {
     devDependencies?: Record<string, string>;
 }
 
+const safeMkdirSync = fromThrowable(mkdirSync, e => e as Error);
+const safeCpSync = fromThrowable(cpSync, e => e as Error);
+const safeRenameSync = fromThrowable(renameSync, e => e as Error);
+const safeReadFileSync = fromThrowable(
+    (path: string) => readFileSync(path, "utf8"),
+    e => e as Error,
+);
+const safeWriteFileSync = fromThrowable(writeFileSync, e => e as Error);
+const safeJsonParse = fromThrowable(
+    (text: string) => JSON.parse(text) as PackageJson,
+    e => e as Error,
+);
+
 async function main() {
     intro("create-template-ts");
 
     const projectName = await getProjectName();
-
     const targetDir = resolveNewDir(projectName);
 
     const s = spinner();
     s.start("Fetching latest package versions");
 
-    const [depVers, devDepVers] = await Promise.all([
-        Promise.all(DEPS.map(async dep => [dep, await getLatestVer(dep)])),
-        Promise.all(DEV_DEPS.map(async dep => [dep, await getLatestVer(dep)])),
+    const [depResults, devDepResults] = await Promise.all([
+        Promise.all(DEPS.map(dep => getLatestVer(dep))),
+        Promise.all(DEV_DEPS.map(dep => getLatestVer(dep))),
     ]);
 
-    const deps = {
-        ...Object.fromEntries(depVers),
-    };
+    const depVers = Result.combine(depResults);
+    const devDepVers = Result.combine(devDepResults);
 
-    const devDeps = {
-        ...Object.fromEntries(devDepVers),
-        "@types/node": `^${version.match(/^v(\d+)/)?.[1]}`,
-    };
+    if (depVers.isErr()) {
+        s.stop("Failed to fetch package versions");
+        cancel(depVers.error.message);
+        exit(1);
+    }
+
+    if (devDepVers.isErr()) {
+        s.stop("Failed to fetch package versions");
+        cancel(devDepVers.error.message);
+        exit(1);
+    }
 
     s.stop("Fetched latest package versions");
 
+    const deps = Object.fromEntries(DEPS.map((dep, i) => [dep, depVers.value[i]]));
+    const devDeps = {
+        ...Object.fromEntries(DEV_DEPS.map((dep, i) => [dep, devDepVers.value[i]])),
+        "@types/node": `^${version.match(/^v(\d+)/)?.[1]}`,
+    };
+
     const templateDir = join(import.meta.dirname, "../template");
-    mkdirSync(targetDir, { recursive: true });
-    cpSync(templateDir, targetDir, { recursive: true });
-
-    const gitignoreSrc = join(targetDir, "_gitignore");
-    const gitignoreDst = join(targetDir, ".gitignore");
-
-    if (existsSync(gitignoreSrc)) {
-        renameSync(gitignoreSrc, gitignoreDst);
-    }
-
-    const vscodeSrc = join(targetDir, "_vscode");
-    const vscodeDst = join(targetDir, ".vscode");
-
-    if (existsSync(vscodeSrc)) {
-        renameSync(vscodeSrc, vscodeDst);
-    }
-
     const pkgPath = join(targetDir, "package.json");
-    const pkg: PackageJson = JSON.parse(readFileSync(pkgPath, "utf8"));
-    pkg.name = basename(projectName);
-    pkg.dependencies = deps;
-    pkg.devDependencies = devDeps;
-    writeFileSync(pkgPath, `${JSON.stringify(pkg, null, 4)}\n`);
+
+    const result = safeMkdirSync(targetDir, { recursive: true })
+        .andThen(() => safeCpSync(templateDir, targetDir, { recursive: true }))
+        .andThen(() => {
+            const src = join(targetDir, "_gitignore");
+            const dst = join(targetDir, ".gitignore");
+
+            return existsSync(src) ? safeRenameSync(src, dst) : ok(undefined);
+        })
+        .andThen(() => {
+            const src = join(targetDir, "_vscode");
+            const dst = join(targetDir, ".vscode");
+
+            return existsSync(src) ? safeRenameSync(src, dst) : ok(undefined);
+        })
+        .andThen(() => safeReadFileSync(pkgPath))
+        .andThen(content => safeJsonParse(content))
+        .andThen((pkg) => {
+            pkg.name = basename(projectName);
+            pkg.dependencies = deps;
+            pkg.devDependencies = devDeps;
+
+            return safeWriteFileSync(pkgPath, `${JSON.stringify(pkg, null, 4)}\n`);
+        });
+
+    if (result.isErr()) {
+        cancel(result.error.message);
+        exit(1);
+    }
 
     outro(`Done! Run:\n\n  cd ${projectName}\n  pnpm install`);
 }
 
-main()
-    .catch((err) => {
-        console.error(err);
-        exit(1);
-    });
+main();

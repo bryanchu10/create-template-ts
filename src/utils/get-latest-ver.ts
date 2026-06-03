@@ -1,14 +1,21 @@
-async function getLatestVer(pkg: string): Promise<string> {
+import type { ResultAsync } from "neverthrow";
+import { fromPromise } from "neverthrow";
+
+function getLatestVer(pkg: string): ResultAsync<string, Error> {
     const encoded = pkg.startsWith("@") ? pkg.replace("/", "%2F") : pkg;
-    const res = await fetch(`https://registry.npmjs.org/${encoded}/latest`);
 
-    if (!res.ok) {
-        throw new Error(`Failed to fetch version for ${pkg}`);
-    }
+    return fromPromise(
+        fetch(`https://registry.npmjs.org/${encoded}/latest`)
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error(`Failed to fetch version for ${pkg}`);
+                }
 
-    const { version } = await res.json() as { version: string };
-
-    return `^${version}`;
+                return res.json() as Promise<{ version: string }>;
+            })
+            .then(({ version }) => `^${version}`),
+        e => e as Error,
+    );
 }
 
 export {
