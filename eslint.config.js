@@ -14,6 +14,12 @@ export default antfu(
                 "style/jsx-max-props-per-line": "off",
                 "style/jsx-closing-bracket-location": ["error", "after-props"],
                 "style/operator-linebreak": ["error", "before"],
+                "style/padding-line-between-statements": [
+                    "error",
+                    { blankLine: "always", prev: "*", next: "for" },
+                    { blankLine: "always", prev: "for", next: "*" },
+                    { blankLine: "always", prev: "*", next: "return" },
+                ],
             },
         },
     },
