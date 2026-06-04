@@ -3,17 +3,15 @@ import { resolve } from "node:path";
 import { cwd, exit } from "node:process";
 import { cancel } from "@clack/prompts";
 
-function resolveNewDir(projectName: string): string {
+export function resolveNewDir(projectName: string): string {
     const targetDir = resolve(cwd(), projectName);
 
-    if (existsSync(targetDir)) {
-        cancel(`Directory already exists: ${targetDir}`);
-        exit(1);
-    }
-
-    return targetDir;
+    return existsSync(targetDir)
+        ? abortWithMessage(`Directory already exists: ${targetDir}`)
+        : targetDir;
 }
 
-export {
-    resolveNewDir,
-};
+function abortWithMessage(message: string): never {
+    cancel(message);
+    exit(1);
+}

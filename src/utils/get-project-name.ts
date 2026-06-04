@@ -3,7 +3,7 @@ import { cancel, isCancel, text } from "@clack/prompts";
 import { match, P } from "ts-pattern";
 import { DEFAULT_PROJECT_NAME } from "@/constants";
 
-async function getProjectName() {
+export async function getProjectName() {
     return argv[2]?.trim() || await askProjectName();
 }
 
@@ -22,7 +22,3 @@ async function askProjectName() {
         })
         .exhaustive();
 }
-
-export {
-    getProjectName,
-};

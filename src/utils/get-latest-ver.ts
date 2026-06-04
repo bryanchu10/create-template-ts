@@ -1,7 +1,7 @@
 import type { ResultAsync } from "neverthrow";
 import { err, fromPromise } from "neverthrow";
 
-function getLatestVer(pkg: string): ResultAsync<string, Error> {
+export function getLatestVer(pkg: string): ResultAsync<string, Error> {
     const encoded = pkg.startsWith("@") ? pkg.replace("/", "%2F") : pkg;
 
     return fromPromise(fetch(`https://registry.npmjs.org/${encoded}/latest`), e => e as Error)
@@ -12,7 +12,3 @@ function getLatestVer(pkg: string): ResultAsync<string, Error> {
         )
         .map(({ version }) => `^${version}`);
 }
-
-export {
-    getLatestVer,
-};
