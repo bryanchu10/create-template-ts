@@ -9,6 +9,7 @@
         "type": "git",
         "url": "https://github.com/bryanchu10/create-template-ts"
     },
+    "keywords": ["scaffold", "typescript", "cli"],
     "bin": "./dist/index.js",
     "files": [
         "dist",
