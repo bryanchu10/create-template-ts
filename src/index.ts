@@ -39,26 +39,26 @@ async function main() {
         Promise.all(DEV_DEPS.map(dep => getLatestVer(dep))),
     ]);
 
-    const depVers = Result.combine(depResults);
-    const devDepVers = Result.combine(devDepResults);
+    const depVerResults = Result.combine(depResults);
+    const devDepVerResults = Result.combine(devDepResults);
 
-    if (depVers.isErr()) {
+    if (depVerResults.isErr()) {
         s.stop("Failed to fetch package versions");
-        cancel(depVers.error.message);
+        cancel(depVerResults.error.message);
         exit(1);
     }
 
-    if (devDepVers.isErr()) {
+    if (devDepVerResults.isErr()) {
         s.stop("Failed to fetch package versions");
-        cancel(devDepVers.error.message);
+        cancel(devDepVerResults.error.message);
         exit(1);
     }
 
     s.stop("Fetched latest package versions");
 
-    const deps = Object.fromEntries(DEPS.map((dep, i) => [dep, depVers.value[i]]));
+    const deps = Object.fromEntries(DEPS.map((dep, i) => [dep, depVerResults.value[i]]));
     const devDeps = {
-        ...Object.fromEntries(DEV_DEPS.map((dep, i) => [dep, devDepVers.value[i]])),
+        ...Object.fromEntries(DEV_DEPS.map((dep, i) => [dep, devDepVerResults.value[i]])),
         "@types/node": `^${version.match(/^v(\d+)/)?.[1]}`,
     };
 
