@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.2](https://github.com/bryanchu10/create-template-ts/compare/v1.1.1...v1.1.2) (2026-06-05)
+
+### Bug Fixes
+
+* use system timezone for changelog dates via sv-SE locale ([4a59731](https://github.com/bryanchu10/create-template-ts/commit/4a59731789b33e40ecb935680f0c6da61c28d997))
+
 ## [1.1.1](https://github.com/bryanchu10/create-template-ts/compare/v1.1.0...v1.1.1) (2026-06-05)
 
 ## [1.1.0](https://github.com/bryanchu10/create-template-ts/compare/v1.0.2...v1.1.0) (2026-06-05)
