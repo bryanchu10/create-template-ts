@@ -2,72 +2,79 @@ import { cpSync, existsSync, mkdirSync, readFileSync, renameSync, writeFileSync 
 import { basename, join } from "node:path";
 import { exit, version } from "node:process";
 import { cancel, intro, outro, spinner } from "@clack/prompts";
-import { fromThrowable, ok, Result } from "neverthrow";
-import { DEPS, DEV_DEPS } from "@/constants";
-import { getLatestVer, getProjectName, resolveNewDir } from "./utils";
+import { fromThrowable, ok, ResultAsync } from "neverthrow";
+import { TEMPLATES } from "@/constants";
+import { getLatestVer, getProjectName, getTemplate, resolveNewDir } from "./utils";
 
 (async () => {
     intro("create-template-ts");
 
-    const projectName = await getProjectName();
-    const targetDir = resolveNewDir(projectName);
+    await getProjectName()
+        .andThen(projectName =>
+            getTemplate().map(template => ({ projectName, template })),
+        )
+        .andThen(({ projectName, template }) =>
+            resolveNewDir(projectName).map(targetDir => ({ projectName, template, targetDir })),
+        )
+        .andThen(({ projectName, template, targetDir }) => {
+            const { deps, devDeps } = TEMPLATES.find(t => t.value === template)!;
 
-    const s = spinner();
-    s.start("Fetching latest package versions");
+            const s = spinner();
+            s.start("Fetching latest package versions");
 
-    const [depResults, devDepResults] = await Promise.all([
-        Promise.all(DEPS.map(dep => getLatestVer(dep))),
-        Promise.all(DEV_DEPS.map(dep => getLatestVer(dep))),
-    ]);
+            return ResultAsync.combine([
+                ResultAsync.combine([...deps].map(dep => getLatestVer(dep))),
+                ResultAsync.combine([...devDeps].map(dep => getLatestVer(dep))),
+            ])
+                .map(([depVers, devDepVers]) => {
+                    s.stop("Fetched latest package versions");
 
-    Result.combine(depResults)
-        .andThen(depVers => Result.combine(devDepResults).map(devDepVers => ({ depVers, devDepVers })))
+                    return { projectName, template, targetDir, deps, devDeps, depVers, devDepVers };
+                })
+                .mapErr((error) => {
+                    s.stop("Failed to fetch package versions");
+
+                    return error;
+                });
+        })
+        .andThen(({ projectName, template, targetDir, deps, devDeps, depVers, devDepVers }) => {
+            const depsMap = Object.fromEntries(deps.map((dep, i) => [dep, depVers[i]]));
+            const devDepsMap = {
+                ...Object.fromEntries(devDeps.map((dep, i) => [dep, devDepVers[i]])),
+                "@types/node": `^${version.match(/^v(\d+)/)?.[1]}`,
+            };
+
+            const templateDir = join(import.meta.dirname, "../templates", template);
+            const pkgPath = join(targetDir, "package.json");
+
+            return safeMkdirSync(targetDir, { recursive: true })
+                .andThen(() => safeCpSync(templateDir, targetDir, { recursive: true }))
+                .andThen(() => {
+                    const src = join(targetDir, "_gitignore");
+                    const dst = join(targetDir, ".gitignore");
+
+                    return existsSync(src) ? safeRenameSync(src, dst) : ok(undefined);
+                })
+                .andThen(() => {
+                    const src = join(targetDir, "_vscode");
+                    const dst = join(targetDir, ".vscode");
+
+                    return existsSync(src) ? safeRenameSync(src, dst) : ok(undefined);
+                })
+                .andThen(() => safeReadFileSync(pkgPath))
+                .andThen(content => safeJsonParse(content))
+                .andThen((pkg) => {
+                    pkg.name = basename(projectName);
+                    pkg.dependencies = depsMap;
+                    pkg.devDependencies = devDepsMap;
+
+                    return safeWriteFileSync(pkgPath, `${JSON.stringify(pkg, null, 4)}\n`);
+                })
+                .map(() => projectName);
+        })
         .match(
-            ({ depVers, devDepVers }) => {
-                s.stop("Fetched latest package versions");
-
-                const deps = Object.fromEntries(DEPS.map((dep, i) => [dep, depVers[i]]));
-                const devDeps = {
-                    ...Object.fromEntries(DEV_DEPS.map((dep, i) => [dep, devDepVers[i]])),
-                    "@types/node": `^${version.match(/^v(\d+)/)?.[1]}`,
-                };
-
-                const templateDir = join(import.meta.dirname, "../template");
-                const pkgPath = join(targetDir, "package.json");
-
-                safeMkdirSync(targetDir, { recursive: true })
-                    .andThen(() => safeCpSync(templateDir, targetDir, { recursive: true }))
-                    .andThen(() => {
-                        const src = join(targetDir, "_gitignore");
-                        const dst = join(targetDir, ".gitignore");
-
-                        return existsSync(src) ? safeRenameSync(src, dst) : ok(undefined);
-                    })
-                    .andThen(() => {
-                        const src = join(targetDir, "_vscode");
-                        const dst = join(targetDir, ".vscode");
-
-                        return existsSync(src) ? safeRenameSync(src, dst) : ok(undefined);
-                    })
-                    .andThen(() => safeReadFileSync(pkgPath))
-                    .andThen(content => safeJsonParse(content))
-                    .andThen((pkg) => {
-                        pkg.name = basename(projectName);
-                        pkg.dependencies = deps;
-                        pkg.devDependencies = devDeps;
-
-                        return safeWriteFileSync(pkgPath, `${JSON.stringify(pkg, null, 4)}\n`);
-                    })
-                    .match(
-                        () => outro(`Done! Run:\n\n  cd ${projectName}\n  pnpm install`),
-                        (err) => {
-                            cancel(err.message);
-                            exit(1);
-                        },
-                    );
-            },
+            projectName => outro(`Done! Run:\n\n  cd ${projectName}\n  pnpm install`),
             (err) => {
-                s.stop("Failed to fetch package versions");
                 cancel(err.message);
                 exit(1);
             },

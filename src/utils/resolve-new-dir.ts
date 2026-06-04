@@ -1,17 +1,13 @@
+import type { Result } from "neverthrow";
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
-import { cwd, exit } from "node:process";
-import { cancel } from "@clack/prompts";
+import { cwd } from "node:process";
+import { err, ok } from "neverthrow";
 
-export function resolveNewDir(projectName: string): string {
+export function resolveNewDir(projectName: string): Result<string, Error> {
     const targetDir = resolve(cwd(), projectName);
 
-    return existsSync(targetDir)
-        ? abortWithMessage(`Directory already exists: ${targetDir}`)
-        : targetDir;
-}
-
-function abortWithMessage(message: string): never {
-    cancel(message);
-    exit(1);
+    return !existsSync(targetDir)
+        ? ok(targetDir)
+        : err(new Error(`Directory already exists: ${targetDir}`));
 }
