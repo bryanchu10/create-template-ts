@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.1.1](https://github.com/bryanchu10/create-template-ts/compare/v1.1.0...v1.1.1) (2026-06-04)
+## [1.1.1](https://github.com/bryanchu10/create-template-ts/compare/v1.1.0...v1.1.1) (2026-06-05)
 
 ## [1.1.0](https://github.com/bryanchu10/create-template-ts/compare/v1.0.2...v1.1.0) (2026-06-05)
 
