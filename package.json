@@ -9,7 +9,11 @@
         "type": "git",
         "url": "https://github.com/bryanchu10/create-template-ts"
     },
-    "keywords": ["scaffold", "typescript", "cli"],
+    "keywords": [
+        "scaffold",
+        "typescript",
+        "cli"
+    ],
     "bin": "./dist/index.js",
     "files": [
         "dist",
@@ -20,7 +24,8 @@
         "check": "tsc --noEmit",
         "build": "rolldown -c",
         "lint": "eslint",
-        "lint:fix": "eslint --fix"
+        "lint:fix": "eslint --fix",
+        "release": "release-it"
     },
     "dependencies": {
         "@clack/prompts": "^1.4.0",
@@ -29,8 +34,10 @@
     },
     "devDependencies": {
         "@antfu/eslint-config": "^9.0.0",
+        "@release-it/conventional-changelog": "^11.0.1",
         "@types/node": "^24.12.4",
         "eslint": "^10.4.0",
+        "release-it": "^20.2.0",
         "rolldown": "^1.0.3",
         "tsx": "^4.22.3",
         "typescript": "^6.0.3"
