@@ -40,6 +40,10 @@ pnpm check     # 型別檢查
 pnpm lint      # eslint
 ```
 
+## 更新紀錄
+
+請見 [CHANGELOG.md](./CHANGELOG.md)。
+
 ## 授權
 
 [MIT](./LICENSE) © Bryan Chu

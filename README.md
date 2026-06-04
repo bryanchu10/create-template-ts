@@ -21,7 +21,6 @@ pnpm create @bryanchu10/template-ts
 ```bash
 npx @bryanchu10/create-template-ts
 ```
-```
 
 Follow the prompts to choose a project name and template. The CLI will fetch the latest package versions automatically.
 
@@ -40,6 +39,10 @@ pnpm build     # bundle with rolldown
 pnpm check     # type check
 pnpm lint      # eslint
 ```
+
+## Changelog
+
+See [CHANGELOG.md](./CHANGELOG.md) for release history.
 
 ## License
 
