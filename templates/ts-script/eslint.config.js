@@ -30,6 +30,7 @@ export default antfu(
                 newIsCap: true,
                 properties: true,
             }],
+            "no-shadow": "error",
         },
     },
     {
