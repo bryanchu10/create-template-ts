@@ -26,7 +26,7 @@ export function getProjectName(): ResultAsync<string, Error> {
             );
 }
 
-function validateProjectName(value: string | undefined): string | undefined {
+export function validateProjectName(value: string | undefined): string | undefined {
     const name = value ?? "";
     const rules: Array<[(n: string) => boolean, string]> = [
         [n => /^[a-z0-9][a-z0-9-_]*$/.test(n), "Only lowercase letters, numbers, hyphens, and underscores"],

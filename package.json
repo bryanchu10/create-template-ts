@@ -25,6 +25,8 @@
         "build": "rolldown -c",
         "lint": "eslint",
         "lint:fix": "eslint --fix",
+        "test": "vitest",
+        "test:run": "vitest run",
         "release": "release-it"
     },
     "dependencies": {
@@ -40,6 +42,7 @@
         "release-it": "^20.2.0",
         "rolldown": "^1.0.3",
         "tsx": "^4.22.3",
-        "typescript": "^6.0.3"
+        "typescript": "^6.0.3",
+        "vitest": "^4.1.8"
     }
 }
