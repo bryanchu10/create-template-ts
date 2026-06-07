@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.0](https://github.com/bryanchu10/create-template-ts/compare/v1.1.2...v1.2.0) (2026-06-07)
+
+### Features
+
+* add ts-library template with type-safe template lookup ([16c3780](https://github.com/bryanchu10/create-template-ts/commit/16c3780ef1071061143dc740872a4354cc7e111e))
+
 ## [1.1.2](https://github.com/bryanchu10/create-template-ts/compare/v1.1.1...v1.1.2) (2026-06-05)
 
 ### Bug Fixes
