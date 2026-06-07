@@ -1,0 +1,23 @@
+{
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        }
+    },
+    "types": "./dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsdown",
+        "dev": "tsdown --watch",
+        "test": "vitest",
+        "test:run": "vitest run",
+        "check": "tsc --noEmit",
+        "lint": "eslint",
+        "lint:fix": "eslint --fix",
+        "release": "release-it"
+    }
+}

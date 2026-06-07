@@ -3,7 +3,8 @@
         "paths": {
             "@/*": ["./src/*"]
         },
-        "types": ["node"]
+        "declaration": true,
+        "isolatedDeclarations": true
     },
     "include": ["src"]
 }

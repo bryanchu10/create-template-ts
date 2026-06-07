@@ -4,5 +4,7 @@
             "@/*": ["./src/*"]
         },
         "types": ["node"]
-    }
+    },
+    "include": ["src"],
+    "exclude": ["templates"]
 }

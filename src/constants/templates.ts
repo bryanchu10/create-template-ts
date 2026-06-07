@@ -1,11 +1,24 @@
-export const TEMPLATES = [
-    {
-        value: "ts-script",
-        label: "ts-script",
+export const TEMPLATES = {
+    "ts-script": {
         hint: "TypeScript script/tooling",
-        deps: ["ts-pattern", "neverthrow"],
-        devDeps: ["eslint", "@antfu/eslint-config", "tsx", "typescript", "rolldown"],
+        withPeerDependencies: false as const,
+        deps: ["ts-pattern", "neverthrow"] as const,
+        devDeps: ["eslint", "@antfu/eslint-config", "tsx", "typescript", "rolldown"] as const,
     },
-] as const;
+    "ts-library": {
+        hint: "TypeScript library with tests and release tooling",
+        withPeerDependencies: true as const,
+        deps: ["ts-pattern", "neverthrow"] as const,
+        devDeps: [
+            "eslint",
+            "@antfu/eslint-config",
+            "typescript",
+            "tsdown",
+            "vitest",
+            "release-it",
+            "@release-it/conventional-changelog",
+        ] as const,
+    },
+} as const;
 
-export type TemplateValue = typeof TEMPLATES[number]["value"];
+export type TemplateValue = keyof typeof TEMPLATES;

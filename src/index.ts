@@ -17,7 +17,7 @@ import { getLatestVer, getProjectName, getTemplate, resolveNewDir } from "./util
             resolveNewDir(projectName).map(targetDir => ({ projectName, template, targetDir })),
         )
         .andThen(({ projectName, template, targetDir }) => {
-            const { deps, devDeps } = TEMPLATES.find(t => t.value === template)!;
+            const { withPeerDependencies, deps, devDeps } = TEMPLATES[template];
 
             const s = spinner();
             s.start("Fetching latest package versions");
@@ -29,7 +29,7 @@ import { getLatestVer, getProjectName, getTemplate, resolveNewDir } from "./util
                 .map(([depVers, devDepVers]) => {
                     s.stop("Fetched latest package versions");
 
-                    return { projectName, template, targetDir, deps, devDeps, depVers, devDepVers };
+                    return { projectName, template, targetDir, withPeerDependencies, deps, devDeps, depVers, devDepVers };
                 })
                 .mapErr((error) => {
                     s.stop("Failed to fetch package versions");
@@ -37,7 +37,7 @@ import { getLatestVer, getProjectName, getTemplate, resolveNewDir } from "./util
                     return error;
                 });
         })
-        .andThen(({ projectName, template, targetDir, deps, devDeps, depVers, devDepVers }) => {
+        .andThen(({ projectName, template, targetDir, withPeerDependencies, deps, devDeps, depVers, devDepVers }) => {
             const depsMap = Object.fromEntries(deps.map((dep, i) => [dep, depVers[i]]));
             const devDepsMap = {
                 ...Object.fromEntries(devDeps.map((dep, i) => [dep, devDepVers[i]])),
@@ -66,6 +66,11 @@ import { getLatestVer, getProjectName, getTemplate, resolveNewDir } from "./util
                 .andThen((pkg) => {
                     pkg.name = basename(projectName);
                     pkg.dependencies = depsMap;
+                    Object.assign(pkg, withPeerDependencies
+                        ? { peerDependencies: Object.fromEntries(
+                                Object.entries(depsMap).map(([dep, ver]) => [dep, ver.replace(/^(\^?\d+)\..*$/, "$1")]),
+                            ) }
+                        : {});
                     pkg.devDependencies = devDepsMap;
 
                     return safeWriteFileSync(pkgPath, `${JSON.stringify(pkg, null, 4)}\n`);
@@ -104,6 +109,7 @@ function safeWriteFileSync(path: string, data: string) {
 interface PackageJson {
     name: string;
     dependencies?: Record<string, string>;
+    peerDependencies?: Record<string, string>;
     devDependencies?: Record<string, string>;
 }
 
