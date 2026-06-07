@@ -29,6 +29,7 @@ npx @bryanchu10/create-template-ts
 | 範本 | 說明 |
 |------|------|
 | `ts-script` | TypeScript 腳本／工具專案，內含 neverthrow、ts-pattern、eslint、tsx、rolldown |
+| `ts-library` | TypeScript 函式庫專案，內含 tsdown、vitest、eslint、release-it |
 
 ## 開發
 
