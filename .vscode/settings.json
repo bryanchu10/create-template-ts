@@ -32,5 +32,9 @@
         "scss",
         "pcss",
         "postcss"
-    ]
+    ],
+
+    // Use workspace TypeScript so that editor diagnostics are consistent with the project compiler.
+    // If prompted, run "TypeScript: Select TypeScript Version" and choose "Use Workspace Version".
+    "js/ts.tsdk.path": "node_modules/typescript/lib"
 }
