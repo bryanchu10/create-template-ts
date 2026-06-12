@@ -30,6 +30,7 @@ Follow the prompts to choose a project name and template. The CLI will fetch the
 |----------|-------------|
 | `ts-script` | TypeScript script/tooling with neverthrow, ts-pattern, eslint, tsx, and rolldown |
 | `ts-library` | TypeScript library with tsdown, vitest, eslint, and release-it |
+| `hono` | Hono API server with Drizzle ORM (SQLite), OpenAPI docs via Scalar, pino logging, and neverthrow |
 
 ## Development
 
