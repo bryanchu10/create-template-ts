@@ -73,7 +73,16 @@ import { getLatestVer, getProjectName, getTemplate, resolveNewDir } from "./util
                         : {});
                     pkg.devDependencies = devDepsMap;
 
-                    return safeWriteFileSync(pkgPath, `${JSON.stringify(pkg, null, 4)}\n`);
+                    const { name, dependencies, peerDependencies, devDependencies, ...rest } = pkg;
+                    const ordered = {
+                        name,
+                        ...rest,
+                        dependencies: sortKeys(dependencies),
+                        ...(peerDependencies ? { peerDependencies: sortKeys(peerDependencies) } : {}),
+                        devDependencies: sortKeys(devDependencies),
+                    };
+
+                    return safeWriteFileSync(pkgPath, `${JSON.stringify(ordered, null, 4)}\n`);
                 })
                 .map(() => projectName);
         })
@@ -115,4 +124,8 @@ interface PackageJson {
 
 function safeJsonParse(text: string) {
     return fromThrowable((t: string) => JSON.parse(t) as PackageJson, e => e as Error)(text);
+}
+
+function sortKeys(obj: Record<string, string> | undefined) {
+    return obj && Object.fromEntries(Object.entries(obj).sort(([a], [b]) => a.localeCompare(b)));
 }
