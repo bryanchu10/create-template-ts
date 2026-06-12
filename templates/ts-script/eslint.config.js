@@ -13,7 +13,7 @@ export default antfu(
                 "style/jsx-first-prop-new-line": ["error", "never"],
                 "style/jsx-max-props-per-line": "off",
                 "style/jsx-closing-bracket-location": ["error", "after-props"],
-                "style/operator-linebreak": ["error", "before"],
+                "style/operator-linebreak": ["error", "before", { overrides: { "=": "after" } }],
                 "style/padding-line-between-statements": [
                     "error",
                     { blankLine: "always", prev: "*", next: "for" },
