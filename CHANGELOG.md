@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.3.0](https://github.com/bryanchu10/create-template-ts/compare/v1.2.1...v1.3.0) (2026-06-13)
+
+### Features
+
+* **templates:** add hono template ([6e1bfa6](https://github.com/bryanchu10/create-template-ts/commit/6e1bfa6f118a8c648abf6fe428c6d1a3069af4cc))
+* **ts-library:** add vitest config to template ([cfcd473](https://github.com/bryanchu10/create-template-ts/commit/cfcd4737db5bd5b89c4fb7ac76a4a4db32bd1e2e))
+
+### Bug Fixes
+
+* correct .DS_Store casing in gitignore files ([4f55732](https://github.com/bryanchu10/create-template-ts/commit/4f55732847e9a92871875226475bdef8dd60768a))
+* **eslint:** allow assignment operator on the right side of line breaks ([6c64030](https://github.com/bryanchu10/create-template-ts/commit/6c640300c8c0ba8c594bbeb37336f7b4e03b3cfd))
+* sort package.json keys to avoid lint warnings ([4dc1494](https://github.com/bryanchu10/create-template-ts/commit/4dc149410ff39f5a8fae216a7175533733ff9408))
+
 ## [1.2.1](https://github.com/bryanchu10/create-template-ts/compare/v1.2.0...v1.2.1) (2026-06-07)
 
 ## [1.2.0](https://github.com/bryanchu10/create-template-ts/compare/v1.1.2...v1.2.0) (2026-06-07)
