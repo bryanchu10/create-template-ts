@@ -1,0 +1,16 @@
+{
+    "type": "module",
+    "scripts": {
+        "dev": "tsx watch src/index.ts",
+        "check": "tsc --noEmit",
+        "build": "rolldown -c",
+        "lint": "eslint",
+        "lint:fix": "eslint --fix",
+        "db:generate": "drizzle-kit generate",
+        "db:migrate": "drizzle-kit migrate",
+        "db:studio": "drizzle-kit studio",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "test:coverage": "vitest run --coverage"
+    }
+}
