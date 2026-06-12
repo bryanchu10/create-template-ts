@@ -38,7 +38,7 @@ import { getLatestVer, getProjectName, getTemplate, resolveNewDir } from "./util
                 });
         })
         .andThen(({ projectName, template, targetDir, withPeerDependencies, deps, devDeps, depVers, devDepVers }) => {
-            const depsMap = Object.fromEntries(deps.map((dep, i) => [dep, depVers[i]]));
+            const depsMap = Object.fromEntries(deps.map((dep, i) => [dep, depVers[i]!]));
             const devDepsMap = {
                 ...Object.fromEntries(devDeps.map((dep, i) => [dep, devDepVers[i]])),
                 "@types/node": `^${version.match(/^v(\d+)/)?.[1]}`,
