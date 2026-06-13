@@ -23,13 +23,13 @@ import { getLatestVer, getProjectName, getTemplate, resolveNewDir } from "./util
             s.start("Fetching latest package versions");
 
             return ResultAsync.combine([
-                ResultAsync.combine([...deps].map(dep => getLatestVer(dep))),
-                ResultAsync.combine([...devDeps].map(dep => getLatestVer(dep))),
+                ResultAsync.combine([...deps].map(dep => getLatestVer(dep).map(ver => [dep, ver] as const))),
+                ResultAsync.combine([...devDeps].map(dep => getLatestVer(dep).map(ver => [dep, ver] as const))),
             ])
-                .map(([depVers, devDepVers]) => {
+                .map(([depEntries, devDepEntries]) => {
                     s.stop("Fetched latest package versions");
 
-                    return { projectName, template, targetDir, withPeerDependencies, deps, devDeps, depVers, devDepVers };
+                    return { projectName, template, targetDir, withPeerDependencies, depEntries, devDepEntries };
                 })
                 .mapErr((error) => {
                     s.stop("Failed to fetch package versions");
@@ -37,10 +37,10 @@ import { getLatestVer, getProjectName, getTemplate, resolveNewDir } from "./util
                     return error;
                 });
         })
-        .andThen(({ projectName, template, targetDir, withPeerDependencies, deps, devDeps, depVers, devDepVers }) => {
-            const depsMap = Object.fromEntries(deps.map((dep, i) => [dep, depVers[i]!]));
+        .andThen(({ projectName, template, targetDir, withPeerDependencies, depEntries, devDepEntries }) => {
+            const depsMap = Object.fromEntries(depEntries);
             const devDepsMap = {
-                ...Object.fromEntries(devDeps.map((dep, i) => [dep, devDepVers[i]])),
+                ...Object.fromEntries(devDepEntries),
                 "@types/node": `^${version.match(/^v(\d+)/)?.[1]}`,
             };
 
