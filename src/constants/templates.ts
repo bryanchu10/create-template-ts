@@ -1,14 +1,33 @@
+export interface TemplateConfig {
+    readonly hint: string;
+    readonly withPeerDependencies: boolean;
+    readonly deps: readonly string[];
+    readonly devDeps: readonly string[];
+    readonly pinnedVersions?: Record<string, string>;
+}
+
+// To add a new template, follow this shape:
+//
+// "my-template": {
+//     hint: "Description shown in the CLI prompt",
+//     withPeerDependencies: false,
+//     deps: ["my-dep"],
+//     devDeps: ["typescript"],
+//     pinnedVersions: { "my-dep": "^1.0.0" }, // omit to always fetch latest
+// },
+
 export const TEMPLATES = {
     "ts-script": {
         hint: "TypeScript script/tooling",
-        withPeerDependencies: false as const,
-        deps: ["ts-pattern", "neverthrow"] as const,
-        devDeps: ["eslint", "@antfu/eslint-config", "tsx", "typescript", "rolldown"] as const,
+        withPeerDependencies: false,
+        deps: ["ts-pattern", "neverthrow"],
+        devDeps: ["eslint", "@antfu/eslint-config", "tsx", "typescript", "rolldown"],
     },
+
     "ts-library": {
         hint: "TypeScript library with tests and release tooling",
-        withPeerDependencies: true as const,
-        deps: ["ts-pattern", "neverthrow"] as const,
+        withPeerDependencies: true,
+        deps: ["ts-pattern", "neverthrow"],
         devDeps: [
             "eslint",
             "@antfu/eslint-config",
@@ -17,11 +36,12 @@ export const TEMPLATES = {
             "vitest",
             "release-it",
             "@release-it/conventional-changelog",
-        ] as const,
+        ],
     },
+
     "hono": {
         hint: "Hono API server with Drizzle ORM, OpenAPI & SQLite",
-        withPeerDependencies: false as const,
+        withPeerDependencies: false,
         deps: [
             "@hono/node-server",
             "@hono/zod-openapi",
@@ -34,7 +54,7 @@ export const TEMPLATES = {
             "pino-http",
             "ts-pattern",
             "zod",
-        ] as const,
+        ],
         devDeps: [
             "@antfu/eslint-config",
             "@types/better-sqlite3",
@@ -46,8 +66,8 @@ export const TEMPLATES = {
             "tsx",
             "typescript",
             "vitest",
-        ] as const,
+        ],
     },
-} as const;
+} as const satisfies Record<string, TemplateConfig>;
 
 export type TemplateValue = keyof typeof TEMPLATES;

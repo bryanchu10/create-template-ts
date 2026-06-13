@@ -1,8 +1,9 @@
+import type { TemplateConfig } from "@/constants";
 import { cpSync, existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { basename, join } from "node:path";
 import { exit, version } from "node:process";
 import { cancel, intro, outro, spinner } from "@clack/prompts";
-import { fromThrowable, ok, ResultAsync } from "neverthrow";
+import { fromThrowable, ok, okAsync, ResultAsync } from "neverthrow";
 import { TEMPLATES } from "@/constants";
 import { getLatestVer, getProjectName, getTemplate, resolveNewDir } from "./utils";
 
@@ -17,14 +18,20 @@ import { getLatestVer, getProjectName, getTemplate, resolveNewDir } from "./util
             resolveNewDir(projectName).map(targetDir => ({ projectName, template, targetDir })),
         )
         .andThen(({ projectName, template, targetDir }) => {
-            const { withPeerDependencies, deps, devDeps } = TEMPLATES[template];
+            const { withPeerDependencies, deps, devDeps, pinnedVersions } = TEMPLATES[template] as TemplateConfig;
+
+            const resolveVer = (dep: string) => {
+                const pinned = pinnedVersions?.[dep];
+
+                return pinned ? okAsync([dep, pinned] as const) : getLatestVer(dep).map(ver => [dep, ver] as const);
+            };
 
             const s = spinner();
             s.start("Fetching latest package versions");
 
             return ResultAsync.combine([
-                ResultAsync.combine([...deps].map(dep => getLatestVer(dep).map(ver => [dep, ver] as const))),
-                ResultAsync.combine([...devDeps].map(dep => getLatestVer(dep).map(ver => [dep, ver] as const))),
+                ResultAsync.combine([...deps].map(resolveVer)),
+                ResultAsync.combine([...devDeps].map(resolveVer)),
             ])
                 .map(([depEntries, devDepEntries]) => {
                     s.stop("Fetched latest package versions");

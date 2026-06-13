@@ -27,6 +27,7 @@
         "lint:fix": "eslint --fix",
         "test": "vitest",
         "test:run": "vitest run",
+        "verify-templates": "tsx scripts/verify-templates.ts",
         "release": "release-it"
     },
     "dependencies": {
