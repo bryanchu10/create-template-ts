@@ -1,4 +1,4 @@
-export { getLatestVer } from "./get-latest-ver";
-export { getProjectName } from "./get-project-name";
-export { getTemplate } from "./get-template";
-export { resolveNewDir } from "./resolve-new-dir";
+export { resolveNewDir, safeCpSync, safeExecSync, safeJsonParse, safeMkdirSync, safeReadFileSync, safeRenameSync, safeWriteFileSync } from "./fs";
+export { sortKeys } from "./object";
+export { getProjectName, getTemplate } from "./prompts";
+export { getLatestVer, makeResolver } from "./version";

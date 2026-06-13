@@ -1,11 +1,12 @@
 import type { TemplateConfig } from "@/constants";
-import { cpSync, existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
+import type { PackageJson } from "@/types";
+import { existsSync } from "node:fs";
 import { basename, join } from "node:path";
 import { exit, version } from "node:process";
 import { cancel, intro, outro, spinner } from "@clack/prompts";
-import { fromThrowable, ok, okAsync, ResultAsync } from "neverthrow";
+import { ok, ResultAsync } from "neverthrow";
 import { TEMPLATES } from "@/constants";
-import { getLatestVer, getProjectName, getTemplate, resolveNewDir } from "./utils";
+import { getProjectName, getTemplate, makeResolver, resolveNewDir, safeCpSync, safeJsonParse, safeMkdirSync, safeReadFileSync, safeRenameSync, safeWriteFileSync, sortKeys } from "@/utils";
 
 (async () => {
     intro("create-template-ts");
@@ -19,12 +20,7 @@ import { getLatestVer, getProjectName, getTemplate, resolveNewDir } from "./util
         )
         .andThen(({ projectName, template, targetDir }) => {
             const { withPeerDependencies, deps, devDeps, pinnedVersions } = TEMPLATES[template] as TemplateConfig;
-
-            const resolveVer = (dep: string) => {
-                const pinned = pinnedVersions?.[dep];
-
-                return pinned ? okAsync([dep, pinned] as const) : getLatestVer(dep).map(ver => [dep, ver] as const);
-            };
+            const resolveVer = makeResolver(pinnedVersions);
 
             const s = spinner();
             s.start("Fetching latest package versions");
@@ -55,7 +51,7 @@ import { getLatestVer, getProjectName, getTemplate, resolveNewDir } from "./util
             const pkgPath = join(targetDir, "package.json");
 
             return safeMkdirSync(targetDir, { recursive: true })
-                .andThen(() => safeCpSync(templateDir, targetDir, { recursive: true }))
+                .andThen(() => safeCpSync(templateDir, targetDir))
                 .andThen(() => {
                     const src = join(targetDir, "_gitignore");
                     const dst = join(targetDir, ".gitignore");
@@ -69,7 +65,7 @@ import { getLatestVer, getProjectName, getTemplate, resolveNewDir } from "./util
                     return existsSync(src) ? safeRenameSync(src, dst) : ok(undefined);
                 })
                 .andThen(() => safeReadFileSync(pkgPath))
-                .andThen(content => safeJsonParse(content))
+                .andThen(content => safeJsonParse<PackageJson>(content))
                 .andThen((pkg) => {
                     pkg.name = basename(projectName);
                     pkg.dependencies = depsMap;
@@ -101,38 +97,3 @@ import { getLatestVer, getProjectName, getTemplate, resolveNewDir } from "./util
             },
         );
 })();
-
-function safeMkdirSync(path: string, options: { recursive: true }) {
-    return fromThrowable(mkdirSync, e => e as Error)(path, options);
-}
-
-function safeCpSync(src: string, dest: string, options: { recursive: true }) {
-    return fromThrowable(cpSync, e => e as Error)(src, dest, options);
-}
-
-function safeRenameSync(oldPath: string, newPath: string) {
-    return fromThrowable(renameSync, e => e as Error)(oldPath, newPath);
-}
-
-function safeReadFileSync(path: string) {
-    return fromThrowable((p: string) => readFileSync(p, "utf8"), e => e as Error)(path);
-}
-
-function safeWriteFileSync(path: string, data: string) {
-    return fromThrowable(writeFileSync, e => e as Error)(path, data);
-}
-
-interface PackageJson {
-    name: string;
-    dependencies?: Record<string, string>;
-    peerDependencies?: Record<string, string>;
-    devDependencies?: Record<string, string>;
-}
-
-function safeJsonParse(text: string) {
-    return fromThrowable((t: string) => JSON.parse(t) as PackageJson, e => e as Error)(text);
-}
-
-function sortKeys(obj: Record<string, string> | undefined) {
-    return obj && Object.fromEntries(Object.entries(obj).sort(([a], [b]) => a.localeCompare(b)));
-}
