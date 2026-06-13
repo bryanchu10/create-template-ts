@@ -5,7 +5,7 @@ import { join, resolve } from "node:path";
 import { exit, version } from "node:process";
 import { ResultAsync } from "neverthrow";
 import { TEMPLATES } from "@/constants";
-import { makeResolver, safeCpSync, safeExecSync, safeJsonParse, safeReadFileSync, safeWriteFileSync } from "@/utils";
+import { makeResolver, safeCpSync, safeExecSync, safeJsonParse, safeReadFileSync, safeWriteFileSync, sortKeys } from "@/utils";
 
 const rootDir = resolve(import.meta.dirname, "..");
 const tmpBase = join(rootDir, ".verify-tmp");
@@ -32,18 +32,24 @@ const tmpBase = join(rootDir, ".verify-tmp");
                 .andThen(([depEntries, devDepEntries]) =>
                     safeReadFileSync(pkgPath)
                         .andThen(content => safeJsonParse<PackageJson>(content))
-                        .andThen(pkg => safeWriteFileSync(pkgPath, `${JSON.stringify({
-                            ...pkg,
-                            name: templateName,
-                            dependencies: Object.fromEntries(depEntries),
-                            devDependencies: {
-                                ...Object.fromEntries(devDepEntries),
-                                "@types/node": `^${version.match(/^v(\d+)/)?.[1]}`,
-                            },
-                        }, null, 4)}\n`)),
+                        .andThen((pkg) => {
+                            const { dependencies: _d, devDependencies: _dd, ...rest } = pkg;
+                            const ordered = {
+                                name: templateName,
+                                ...rest,
+                                dependencies: sortKeys(Object.fromEntries(depEntries)),
+                                devDependencies: sortKeys({
+                                    ...Object.fromEntries(devDepEntries),
+                                    "@types/node": `^${version.match(/^v(\d+)/)?.[1]}`,
+                                }),
+                            };
+
+                            return safeWriteFileSync(pkgPath, `${JSON.stringify(ordered, null, 4)}\n`);
+                        }),
                 )
                 .andThen(() => safeExecSync("pnpm install", { cwd: targetDir, stdio: "inherit" }))
                 .andThen(() => safeExecSync("pnpm check", { cwd: targetDir, stdio: "inherit" }))
+                .andThen(() => safeExecSync("pnpm exec eslint --ignore-pattern pnpm-workspace.yaml", { cwd: targetDir, stdio: "inherit" }))
                 .map(() => console.log(`  ✓ ${templateName} OK`))
                 .mapErr((err) => {
                     console.error(`  ✗ ${templateName} FAILED: ${err.message}`);

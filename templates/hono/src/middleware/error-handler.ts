@@ -1,5 +1,5 @@
 import type { ErrorHandler } from "hono";
-import { logger } from "../lib/logger";
+import { logger } from "@/lib";
 
 export const errorHandler: ErrorHandler = (err, c) => {
     logger.error({ err }, "Unhandled error");

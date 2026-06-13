@@ -1,13 +1,13 @@
 import type { Result } from "neverthrow";
-import type { DB } from "../../db/client";
 import type {
     UserDatabaseError,
     UserDuplicateEmailError,
     UserNotFoundError,
 } from "./user.errors";
+import type { DB } from "@/db";
 import { eq } from "drizzle-orm";
 import { err, ok } from "neverthrow";
-import { users } from "../../db/schema";
+import { users } from "@/db";
 
 export type UserRow = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;

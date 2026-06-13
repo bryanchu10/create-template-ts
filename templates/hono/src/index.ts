@@ -2,9 +2,9 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 import process from "node:process";
 import { createAdaptorServer } from "@hono/node-server";
 import pinoHttp from "pino-http";
+import { env } from "@/config";
+import { logger } from "@/lib";
 import { createApp } from "./app";
-import { env } from "./config/env";
-import { logger } from "./lib/logger";
 
 const app = createApp();
 const httpLogger = pinoHttp({ logger });

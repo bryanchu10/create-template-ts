@@ -1,8 +1,8 @@
 import Database from "better-sqlite3";
 import { drizzle } from "drizzle-orm/better-sqlite3";
 import { beforeEach, describe, expect, it } from "vitest";
-import { createApp } from "../../../app";
-import * as schema from "../../../db/schema";
+import { createApp } from "@/app";
+import { schema } from "@/db";
 
 function setupTestDb() {
     const sqlite = new Database(":memory:");

@@ -1,12 +1,10 @@
-import type { DB } from "./db/client";
+import type { DB } from "@/db";
 import { OpenAPIHono } from "@hono/zod-openapi";
 import { Scalar as scalar } from "@scalar/hono-api-reference";
-import { env } from "./config/env";
-import { db } from "./db/client";
-import { createUserRouter } from "./features/users/index";
-import { UserRepository } from "./features/users/user.repo";
-import { UserService } from "./features/users/user.service";
-import { errorHandler } from "./middleware/error-handler";
+import { env } from "@/config";
+import { db } from "@/db";
+import { createUserRouter, UserRepository, UserService } from "@/features/users";
+import { errorHandler } from "@/middleware";
 
 export function createApp(dbOverride?: DB) {
     const app = new OpenAPIHono({
