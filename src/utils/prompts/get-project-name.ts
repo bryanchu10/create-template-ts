@@ -17,7 +17,7 @@ export function getProjectName(): ResultAsync<string, Error> {
                     defaultValue: DEFAULT_PROJECT_NAME,
                     validate: validateProjectName,
                 }),
-                e => e as Error,
+                e => (e instanceof Error ? e : new Error(String(e))),
             ).andThen(answer =>
                 match(answer)
                     .with(P.when(isCancel), () => err(new Error("Operation cancelled")))
