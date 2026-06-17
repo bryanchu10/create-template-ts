@@ -6,7 +6,7 @@ import { match, P } from "ts-pattern";
 import { TEMPLATES } from "@/constants";
 
 export function getTemplate(): ResultAsync<TemplateValue, Error> {
-    const options = (Object.keys(TEMPLATES) as TemplateValue[]).map(key => ({
+    const options = (Object.keys(TEMPLATES) as TemplateValue[]).map((key) => ({
         value: key,
         label: key,
         hint: TEMPLATES[key].hint,
@@ -17,11 +17,11 @@ export function getTemplate(): ResultAsync<TemplateValue, Error> {
             message: "Select a template",
             options,
         }),
-        e => (e instanceof Error ? e : new Error(String(e))),
-    ).andThen(answer =>
+        (e) => (e instanceof Error ? e : new Error(String(e))),
+    ).andThen((answer) =>
         match(answer)
             .with(P.when(isCancel), () => err(new Error("Operation cancelled")))
-            .with(P.string, t => ok(t))
+            .with(P.string, (t) => ok(t))
             .exhaustive(),
     );
 }

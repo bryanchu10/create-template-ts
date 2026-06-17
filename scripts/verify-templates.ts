@@ -43,7 +43,7 @@ void (async () => {
                 ]))
                 .andThen(([depEntries, devDepEntries]) =>
                     safeReadFileSync(pkgPath)
-                        .andThen(content => safeJsonParse<PackageJson>(content))
+                        .andThen((content) => safeJsonParse<PackageJson>(content))
                         .andThen((pkg) => {
                             const depsMap = Object.fromEntries(depEntries);
                             const peerDepsMap = withPeerDependencies
@@ -80,6 +80,6 @@ void (async () => {
 
     rmSync(tmpBase, { recursive: true });
 
-    if (results.some(r => r.isErr()))
+    if (results.some((r) => r.isErr()))
         exit(1);
 })();

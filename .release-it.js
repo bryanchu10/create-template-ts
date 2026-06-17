@@ -16,7 +16,7 @@ export default {
             preset: "conventionalcommits",
             infile: "CHANGELOG.md",
             writerOpts: {
-                formatDate: date =>
+                formatDate: (date) =>
                     new Date(date).toLocaleDateString("sv-SE", {
                         timeZone: new Intl.DateTimeFormat().resolvedOptions().timeZone,
                     }),

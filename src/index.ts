@@ -12,11 +12,11 @@ void (async () => {
     intro("create-template-ts");
 
     await getProjectName()
-        .andThen(projectName =>
-            getTemplate().map(template => ({ projectName, template })),
+        .andThen((projectName) =>
+            getTemplate().map((template) => ({ projectName, template })),
         )
         .andThen(({ projectName, template }) =>
-            resolveNewDir(projectName).map(targetDir => ({ projectName, template, targetDir })),
+            resolveNewDir(projectName).map((targetDir) => ({ projectName, template, targetDir })),
         )
         .andThen(({ projectName, template, targetDir }) => {
             const { withPeerDependencies, deps, devDeps, pinnedVersions } = TEMPLATES[template] as TemplateConfig;
@@ -65,7 +65,7 @@ void (async () => {
                     return existsSync(src) ? safeRenameSync(src, dst) : ok(undefined);
                 })
                 .andThen(() => safeReadFileSync(pkgPath))
-                .andThen(content => safeJsonParse<PackageJson>(content))
+                .andThen((content) => safeJsonParse<PackageJson>(content))
                 .andThen((pkg) => {
                     pkg.name = basename(projectName);
                     pkg.dependencies = depsMap;
@@ -90,7 +90,7 @@ void (async () => {
                 .map(() => projectName);
         })
         .match(
-            projectName => outro(`Done! Run:\n\n  cd ${projectName}\n  pnpm install`),
+            (projectName) => outro(`Done! Run:\n\n  cd ${projectName}\n  pnpm install`),
             (err) => {
                 cancel(err.message);
                 exit(1);

@@ -22,6 +22,7 @@ export default antfu(
                     { blankLine: "always", prev: "for", next: "*" },
                     { blankLine: "always", prev: "*", next: "return" },
                 ],
+                "style/arrow-parens": ["error", "always"],
             },
         },
     },

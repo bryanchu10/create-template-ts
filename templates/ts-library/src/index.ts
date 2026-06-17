@@ -13,7 +13,7 @@ function buildGreeting(language: Language) {
 
 export function greet(language: Language = "en"): string {
     return buildGreeting(language).match(
-        msg => msg,
+        (msg) => msg,
         () => "Hello, World!",
     );
 }

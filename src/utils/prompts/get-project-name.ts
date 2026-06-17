@@ -17,11 +17,11 @@ export function getProjectName(): ResultAsync<string, Error> {
                     defaultValue: DEFAULT_PROJECT_NAME,
                     validate: validateProjectName,
                 }),
-                e => (e instanceof Error ? e : new Error(String(e))),
-            ).andThen(answer =>
+                (e) => (e instanceof Error ? e : new Error(String(e))),
+            ).andThen((answer) =>
                 match(answer)
                     .with(P.when(isCancel), () => err(new Error("Operation cancelled")))
-                    .with(P.string, name => ok(name))
+                    .with(P.string, (name) => ok(name))
                     .exhaustive(),
             );
 }
@@ -29,8 +29,8 @@ export function getProjectName(): ResultAsync<string, Error> {
 export function validateProjectName(value: string | undefined): string | undefined {
     const name = value ?? "";
     const rules: Array<[(n: string) => boolean, string]> = [
-        [n => /^[a-z0-9][a-z0-9-_]*$/.test(n), "Only lowercase letters, numbers, hyphens, and underscores"],
-        [n => !n.startsWith("."), "Name cannot start with a dot"],
+        [(n) => /^[a-z0-9][a-z0-9-_]*$/.test(n), "Only lowercase letters, numbers, hyphens, and underscores"],
+        [(n) => !n.startsWith("."), "Name cannot start with a dot"],
     ];
 
     return rules.find(([predicate]) => !predicate(name))?.[1];
