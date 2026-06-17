@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.1](https://github.com/bryanchu10/create-template-ts/compare/v1.4.0...v1.4.1) (2026-06-18)
+
+### Bug Fixes
+
+* resolve lint errors and restructure ts-library tsconfig ([05365cd](https://github.com/bryanchu10/create-template-ts/commit/05365cdf58dae6338011a9549af0b7ec0a1a33b1))
+* **utils:** safely coerce thrown values to Error instances ([f72f25c](https://github.com/bryanchu10/create-template-ts/commit/f72f25c921012f8070e4b0c3b64c345d9454ffa6))
+* **verify-templates:** align CI script with index.ts template generation ([c9d14d4](https://github.com/bryanchu10/create-template-ts/commit/c9d14d4663bdb620aa173e9b6e41e3ed74ea3f6f))
+
 ## [1.4.0](https://github.com/bryanchu10/create-template-ts/compare/v1.3.2...v1.4.0) (2026-06-13)
 
 ### Features
