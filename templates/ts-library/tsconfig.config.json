@@ -1,13 +1,12 @@
 {
     "compilerOptions": {
-        "paths": {
-            "@/*": ["./src/*"]
-        },
+        "composite": true,
+        "module": "ESNext",
+        "moduleResolution": "Bundler",
         "types": ["node"],
         "strict": true,
         "noUncheckedIndexedAccess": true,
         "skipLibCheck": true
     },
-    "include": ["src", "scripts", "*.ts"],
-    "exclude": ["templates"]
+    "include": ["*.ts"]
 }

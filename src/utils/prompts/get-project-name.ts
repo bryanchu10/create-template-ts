@@ -8,7 +8,7 @@ import { DEFAULT_PROJECT_NAME } from "@/constants";
 export function getProjectName(): ResultAsync<string, Error> {
     const cliArg = argv[2]?.trim();
 
-    return cliArg
+    return (cliArg != null && cliArg !== "")
         ? okAsync(cliArg)
         : fromPromise(
                 text({

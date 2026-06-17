@@ -10,7 +10,7 @@ import { makeResolver, safeCpSync, safeExecSync, safeJsonParse, safeReadFileSync
 const rootDir = resolve(import.meta.dirname, "..");
 const tmpBase = join(rootDir, ".verify-tmp");
 
-(async () => {
+void (async () => {
     rmSync(tmpBase, { recursive: true, force: true });
     mkdirSync(tmpBase);
 
@@ -33,7 +33,7 @@ const tmpBase = join(rootDir, ".verify-tmp");
                     safeReadFileSync(pkgPath)
                         .andThen(content => safeJsonParse<PackageJson>(content))
                         .andThen((pkg) => {
-                            const { dependencies: _d, devDependencies: _dd, ...rest } = pkg;
+                            const { name: _n, dependencies: _d, devDependencies: _dd, ...rest } = pkg;
                             const ordered = {
                                 name: templateName,
                                 ...rest,

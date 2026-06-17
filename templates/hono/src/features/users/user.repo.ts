@@ -52,7 +52,7 @@ export class UserRepository {
         }
         catch (cause) {
             if (isSQLiteUniqueViolation(cause)) {
-                return err({ type: "USER_DUPLICATE_EMAIL", email: data.email! });
+                return err({ type: "USER_DUPLICATE_EMAIL", email: data.email });
             }
 
             return err({ type: "USER_DATABASE_ERROR", cause });

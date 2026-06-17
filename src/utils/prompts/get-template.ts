@@ -21,7 +21,7 @@ export function getTemplate(): ResultAsync<TemplateValue, Error> {
     ).andThen(answer =>
         match(answer)
             .with(P.when(isCancel), () => err(new Error("Operation cancelled")))
-            .with(P.string, t => ok(t as TemplateValue))
+            .with(P.string, t => ok(t))
             .exhaustive(),
     );
 }

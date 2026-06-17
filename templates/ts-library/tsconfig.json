@@ -1,13 +1,7 @@
 {
-    "compilerOptions": {
-        "paths": {
-            "@/*": ["./src/*"]
-        },
-        "strict": true,
-        "noUncheckedIndexedAccess": true,
-        "declaration": true,
-        "isolatedDeclarations": true,
-        "skipLibCheck": true
-    },
-    "include": ["src"]
+    "references": [
+        { "path": "./tsconfig.src.json" },
+        { "path": "./tsconfig.config.json" }
+    ],
+    "files": []
 }

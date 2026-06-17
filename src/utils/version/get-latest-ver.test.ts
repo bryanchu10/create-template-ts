@@ -13,7 +13,7 @@ describe("getLatestVer", () => {
     it("returns version string prefixed with caret on success", async () => {
         vi.mocked(fetch).mockResolvedValue({
             ok: true,
-            json: () => Promise.resolve({ version: "1.2.3" }),
+            json: async () => ({ version: "1.2.3" }),
         } as Response);
 
         const result = await getLatestVer("some-pkg");
@@ -26,7 +26,7 @@ describe("getLatestVer", () => {
     it("encodes scoped package name correctly", async () => {
         vi.mocked(fetch).mockResolvedValue({
             ok: true,
-            json: () => Promise.resolve({ version: "2.0.0" }),
+            json: async () => ({ version: "2.0.0" }),
         } as Response);
 
         await getLatestVer("@scope/pkg");

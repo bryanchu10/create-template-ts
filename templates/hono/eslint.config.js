@@ -3,7 +3,9 @@ import antfu from "@antfu/eslint-config";
 export default antfu(
     {
         ignores: ["drizzle/**"],
-        typescript: true,
+        typescript: {
+            tsconfigPath: "tsconfig.json",
+        },
         stylistic: {
             indent: 4,
             quotes: "double",

@@ -1,5 +1,5 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { okAsync } from "neverthrow";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import * as getLatestVerModule from "./get-latest-ver";
 import { makeResolver } from "./resolve-ver";
 

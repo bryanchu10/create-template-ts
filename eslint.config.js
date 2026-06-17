@@ -2,7 +2,10 @@ import antfu from "@antfu/eslint-config";
 
 export default antfu(
     {
-        typescript: true,
+        ignores: ["templates/**"],
+        typescript: {
+            tsconfigPath: "tsconfig.json",
+        },
         stylistic: {
             indent: 4,
             quotes: "double",

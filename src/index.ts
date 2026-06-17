@@ -8,7 +8,7 @@ import { ok, ResultAsync } from "neverthrow";
 import { TEMPLATES } from "@/constants";
 import { getProjectName, getTemplate, makeResolver, resolveNewDir, safeCpSync, safeJsonParse, safeMkdirSync, safeReadFileSync, safeRenameSync, safeWriteFileSync, sortKeys } from "@/utils";
 
-(async () => {
+void (async () => {
     intro("create-template-ts");
 
     await getProjectName()
@@ -80,8 +80,8 @@ import { getProjectName, getTemplate, makeResolver, resolveNewDir, safeCpSync, s
                     const ordered = {
                         name,
                         ...rest,
-                        dependencies: sortKeys(dependencies),
                         ...(peerDependencies ? { peerDependencies: sortKeys(peerDependencies) } : {}),
+                        dependencies: sortKeys(dependencies),
                         devDependencies: sortKeys(devDependencies),
                     };
 
