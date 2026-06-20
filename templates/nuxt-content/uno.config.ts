@@ -1,8 +1,15 @@
-import { defineConfig, presetWind4 } from "unocss";
+import { defineConfig, presetWebFonts, presetWind4 } from "unocss";
 
 export default defineConfig({
     presets: [
         presetWind4(),
+        presetWebFonts({
+            provider: "google",
+            fonts: {
+                sans: ["IBM Plex Sans", "Noto Sans TC"],
+                mono: ["IBM Plex Mono"],
+            },
+        }),
     ],
     theme: {
         colors: {
