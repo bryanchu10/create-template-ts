@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>404 - Page Not Found</title>
+  <script>
+    const { pathname, search, hash } = window.location
+    const locales = ['en', 'zh-TW']
+    const hasLocale = locales.some(l => pathname === `/${l}` || pathname.startsWith(`/${l}/`))
+    if (!hasLocale) {
+      window.location.replace(`/en${pathname}${search}${hash}`)
+    }
+  </script>
+</head>
+<body>
+  <h1>404 - Page Not Found</h1>
+</body>
+</html>

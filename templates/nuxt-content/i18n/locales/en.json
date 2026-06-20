@@ -1,0 +1,11 @@
+{
+    "counter": {
+        "title": "Counter",
+        "increment": "Increment",
+        "decrement": "Decrement"
+    },
+    "prose": {
+        "copy": "Copy",
+        "copied": "Copied!"
+    }
+}

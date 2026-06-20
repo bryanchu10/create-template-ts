@@ -1,0 +1,5 @@
+<template>
+    <h2 class="text-2xl text-primary leading-snug font-semibold mb-4 mt-8">
+        <slot />
+    </h2>
+</template>

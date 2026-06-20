@@ -1,0 +1,20 @@
+:root {
+  /* Base 70% */
+  --color-base:         0.13 0.022 123;
+  --color-base-subtle:  0.19 0.025 123;
+  --color-base-muted:   0.26 0.028 123;
+
+  /* Primary 25% */
+  --color-primary:      0.83 0.07 123;
+  --color-primary-dim:  0.60 0.050 123;
+  --color-primary-fg:   0.13 0.022 123;
+
+  /* Accent 5% */
+  --color-accent:       0.78 0.18 52;
+  --color-accent-hover: 0.70 0.20 52;
+  --color-accent-fg:    0.13 0.022 123;
+}
+
+body {
+  background-color: oklch(var(--color-base));
+}

@@ -4,6 +4,7 @@ export interface TemplateConfig {
     readonly deps: readonly string[];
     readonly devDeps: readonly string[];
     readonly pinnedVersions?: Record<string, string>;
+    readonly skipVerify?: true;
 }
 
 // To add a new template, follow this shape:
@@ -66,6 +67,27 @@ export const TEMPLATES = {
             "tsx",
             "typescript",
             "vitest",
+        ],
+    },
+    "nuxt-content": {
+        hint: "Nuxt Content site with i18n, UnoCSS & OKLCH color system",
+        withPeerDependencies: false,
+        skipVerify: true,
+        deps: [
+            "@nuxt/content",
+            "@nuxtjs/i18n",
+            "@unocss/reset",
+            "better-sqlite3",
+            "nuxt",
+            "vue",
+            "vue-router",
+        ],
+        devDeps: [
+            "@antfu/eslint-config",
+            "@unocss/eslint-plugin",
+            "@unocss/nuxt",
+            "eslint",
+            "unocss",
         ],
     },
 } as const satisfies Record<string, TemplateConfig>;

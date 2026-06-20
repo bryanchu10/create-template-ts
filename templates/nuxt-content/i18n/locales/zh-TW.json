@@ -1,0 +1,11 @@
+{
+    "counter": {
+        "title": "計數器",
+        "increment": "增加",
+        "decrement": "減少"
+    },
+    "prose": {
+        "copy": "複製",
+        "copied": "已複製"
+    }
+}

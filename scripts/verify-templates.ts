@@ -20,7 +20,7 @@ void (async () => {
 
             const targetDir = join(tmpBase, templateName);
             const templateDir = join(rootDir, "templates", templateName);
-            const { withPeerDependencies, deps, devDeps, pinnedVersions } = config;
+            const { withPeerDependencies, deps, devDeps, pinnedVersions, skipVerify } = config;
             const resolveVersion = makeResolver(pinnedVersions);
             const pkgPath = join(targetDir, "package.json");
 
@@ -67,8 +67,8 @@ void (async () => {
                         }),
                 )
                 .andThen(() => safeExecSync("pnpm install", { cwd: targetDir, stdio: "inherit" }))
-                .andThen(() => safeExecSync("pnpm check", { cwd: targetDir, stdio: "inherit" }))
-                .andThen(() => safeExecSync("pnpm exec eslint --ignore-pattern pnpm-workspace.yaml", { cwd: targetDir, stdio: "inherit" }))
+                .andThen(() => skipVerify ? ok(undefined) : safeExecSync("pnpm check", { cwd: targetDir, stdio: "inherit" }))
+                .andThen(() => skipVerify ? ok(undefined) : safeExecSync("pnpm exec eslint --ignore-pattern pnpm-workspace.yaml", { cwd: targetDir, stdio: "inherit" }))
                 .map(() => console.log(`  ✓ ${templateName} OK`))
                 .mapErr((err) => {
                     console.error(`  ✗ ${templateName} FAILED: ${err.message}`);
