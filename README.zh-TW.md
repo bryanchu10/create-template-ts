@@ -31,6 +31,7 @@ npx @bryanchu10/create-template-ts
 | `ts-script` | TypeScript 腳本／工具專案，內含 neverthrow、ts-pattern、eslint、tsx、rolldown |
 | `ts-library` | TypeScript 函式庫專案，內含 tsdown、vitest、eslint、release-it |
 | `hono` | Hono API 伺服器，內含 Drizzle ORM（SQLite）、Scalar OpenAPI 文件、pino 日誌、neverthrow |
+| `nuxt-content` | Nuxt 4 內容網站，內含 @nuxt/content v3、i18n（en/zh-TW）、UnoCSS、OKLCH 色彩系統 |
 
 ## 開發
 
