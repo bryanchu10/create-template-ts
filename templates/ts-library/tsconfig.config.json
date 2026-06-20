@@ -8,5 +8,5 @@
         "noUncheckedIndexedAccess": true,
         "skipLibCheck": true
     },
-    "include": ["*.ts"]
+    "include": ["*.config.ts"]
 }
