@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.5.0](https://github.com/bryanchu10/create-template-ts/compare/v1.4.1...v1.5.0) (2026-06-21)
+
+### Features
+
+* **nuxt-content:** add nuxt-content template ([b4c9d2e](https://github.com/bryanchu10/create-template-ts/commit/b4c9d2e8b9efc0868c3ab11fdf7112e1ffed37a7))
+* **nuxt-content:** add web fonts via presetWebFonts ([01e9f37](https://github.com/bryanchu10/create-template-ts/commit/01e9f37dcec2d325d8522fe3652ea73dec52fee8))
+
+### Bug Fixes
+
+* **ts-library:** narrow tsconfig.config.json include to *.config.ts ([d5a9c5d](https://github.com/bryanchu10/create-template-ts/commit/d5a9c5d744bc203ad11cc9535f2bd9aaa78a10a3))
+
 ## [1.4.1](https://github.com/bryanchu10/create-template-ts/compare/v1.4.0...v1.4.1) (2026-06-18)
 
 ### Bug Fixes
