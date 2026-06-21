@@ -29,6 +29,16 @@ export default defineNuxtConfig({
             ctx.content.updatedAt ??= gitDate(absPath, cwd, "last");
         },
     },
+    content: {
+        build: {
+            markdown: {
+                highlight: {
+                    theme: "vitesse-dark",
+                    langs: ["ts", "tsx", "js", "jsx", "vue", "bash", "sh", "json", "css", "html", "md", "yaml"],
+                },
+            },
+        },
+    },
     modules: [
         "@nuxt/content",
         "@unocss/nuxt",

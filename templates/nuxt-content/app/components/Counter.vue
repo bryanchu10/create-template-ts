@@ -12,8 +12,8 @@ function decrement() {
 </script>
 
 <template>
-    <div class="mb-2 p-3 border border-primary inline-block">
-        <span class="text-primary mb-2 block">{{ t("counter.title") }}: {{ count }}</span>
+    <div class="mbe-2 p-3 border border-primary inline-block">
+        <span class="text-primary mbe-2 block">{{ t("counter.title") }}: {{ count }}</span>
         <div class="flex gap-2">
             <button class="text-primary px-2 py-1 border" @click="increment">
                 {{ t("counter.increment") }}

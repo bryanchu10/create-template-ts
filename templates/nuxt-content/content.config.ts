@@ -5,6 +5,7 @@ const commonSchema = z.object({
     description: z.string().optional(),
     date: z.string().optional(),
     updatedAt: z.string().optional(),
+    tags: z.array(z.string()).optional(),
 });
 
 export default defineContentConfig({

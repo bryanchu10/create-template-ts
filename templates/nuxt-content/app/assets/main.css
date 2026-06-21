@@ -16,6 +16,7 @@
 }
 
 body {
+  color: oklch(var(--color-primary-dim));
   background-color: oklch(var(--color-base));
   font-family: var(--font-sans);
 }
