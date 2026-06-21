@@ -2,8 +2,8 @@
 
 # create-template-ts
 
-[![npm version](https://img.shields.io/npm/v/@bryanchu10/create-template-ts)](https://www.npmjs.com/package/@bryanchu10/create-template-ts)
-[![npm downloads](https://img.shields.io/npm/dm/@bryanchu10/create-template-ts)](https://www.npmjs.com/package/@bryanchu10/create-template-ts)
+[![npm version](https://img.shields.io/npm/v/@hosaki/create-template-ts)](https://www.npmjs.com/package/@hosaki/create-template-ts)
+[![npm downloads](https://img.shields.io/npm/dm/@hosaki/create-template-ts)](https://www.npmjs.com/package/@hosaki/create-template-ts)
 [![license](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
 [![node](https://img.shields.io/badge/node-%3E%3D22-brightgreen?logo=node.js&logoColor=white)](https://nodejs.org)
 [![pnpm](https://img.shields.io/badge/pnpm-%3E%3D9-F69220?logo=pnpm&logoColor=white)](https://pnpm.io)
@@ -14,12 +14,12 @@ Scaffold a modular TypeScript project for scripts and tooling.
 
 **pnpm**
 ```bash
-pnpm create @bryanchu10/template-ts
+pnpm create @hosaki/template-ts
 ```
 
 **npm**
 ```bash
-npx @bryanchu10/create-template-ts
+npx @hosaki/create-template-ts
 ```
 
 Follow the prompts to choose a project name and template. The CLI will fetch the latest package versions automatically.

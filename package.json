@@ -1,5 +1,5 @@
 {
-    "name": "@bryanchu10/create-template-ts",
+    "name": "@hosaki/create-template-ts",
     "type": "module",
     "version": "1.5.0",
     "description": "Scaffold a modular TypeScript project for scripts and tooling",
