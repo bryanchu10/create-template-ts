@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/bryanchu10/create-template-ts/compare/v1.5.0...v1.6.0) (2026-06-21)
+
+### Features
+
+* **nuxt-content:** add syntax highlighting and logical CSS properties ([5ddda56](https://github.com/bryanchu10/create-template-ts/commit/5ddda562878c6c45750919b1fe326d0ba614ca1c))
+* **nuxt-content:** auto-populate content dates from git history ([e5bcb01](https://github.com/bryanchu10/create-template-ts/commit/e5bcb0160c4c23e1c2870aecfb155614e2aa3384))
+
 ## [1.5.0](https://github.com/bryanchu10/create-template-ts/compare/v1.4.1...v1.5.0) (2026-06-21)
 
 ### Features
