@@ -2,6 +2,9 @@ import { defineCollection, defineContentConfig, z } from "@nuxt/content";
 
 const commonSchema = z.object({
     title: z.string().optional(),
+    description: z.string().optional(),
+    date: z.string().optional(),
+    updatedAt: z.string().optional(),
 });
 
 export default defineContentConfig({
