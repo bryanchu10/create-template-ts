@@ -28,10 +28,21 @@ npx @hosaki/create-template-ts
 
 | 範本 | 說明 |
 |------|------|
-| `ts-script` | TypeScript 腳本／工具專案，內含 neverthrow、ts-pattern、eslint、tsx、rolldown |
-| `ts-library` | TypeScript 函式庫專案，內含 tsdown、vitest、eslint、release-it |
-| `hono` | Hono API 伺服器，內含 Drizzle ORM（SQLite）、Scalar OpenAPI 文件、pino 日誌、neverthrow |
-| `nuxt-content` | Nuxt 4 內容網站，內含 @nuxt/content v3、i18n（en/zh-TW）、UnoCSS、OKLCH 色彩系統 |
+| ts-script | TypeScript 腳本／工具專案，內含 neverthrow、ts-pattern、eslint、tsx、rolldown |
+| ts-library | TypeScript 函式庫專案，內含 tsdown、vitest、eslint、release-it |
+| hono | Hono API 伺服器，內含 Drizzle ORM（SQLite）、Scalar OpenAPI 文件、pino 日誌、neverthrow |
+| nuxt-content | Nuxt 4 內容網站，內含 @nuxt/content v3、i18n（en/zh-TW）、UnoCSS、OKLCH 色彩系統，元件以 TSX 語法撰寫 |
+
+> **nuxt-content 啟動順序**
+>
+> dev 伺服器會讀取 `git log` 來填入內容的時間戳，因此執行 `dev` 之前必須先有 git repository 且至少存在一筆 commit。另外，Nuxt 會在第一次 `dev` 時生成型別檔案，在此之前執行 `check` 或 `lint` 會失敗。
+>
+> ```bash
+> git init
+> git add -A && git commit -m "init"
+> pnpm install
+> pnpm dev   # 至少執行一次，check/lint 才能正常運作
+> ```
 
 ## 開發
 

@@ -28,10 +28,21 @@ Follow the prompts to choose a project name and template. The CLI will fetch the
 
 | Template | Description |
 |----------|-------------|
-| `ts-script` | TypeScript script/tooling with neverthrow, ts-pattern, eslint, tsx, and rolldown |
-| `ts-library` | TypeScript library with tsdown, vitest, eslint, and release-it |
-| `hono` | Hono API server with Drizzle ORM (SQLite), OpenAPI docs via Scalar, pino logging, and neverthrow |
-| `nuxt-content` | Nuxt 4 content site with @nuxt/content v3, i18n (en/zh-TW), UnoCSS, and OKLCH color system |
+| ts-script | TypeScript script/tooling with neverthrow, ts-pattern, eslint, tsx, and rolldown |
+| ts-library | TypeScript library with tsdown, vitest, eslint, and release-it |
+| hono | Hono API server with Drizzle ORM (SQLite), OpenAPI docs via Scalar, pino logging, and neverthrow |
+| nuxt-content | Nuxt 4 content site with @nuxt/content v3, i18n (en/zh-TW), UnoCSS, OKLCH color system, and Vue components authored in TSX |
+
+> **nuxt-content setup order**
+>
+> The dev server reads `git log` to populate content metadata, so a git repository with at least one commit must exist before running `dev`. Nuxt also generates type files on the first dev run, so `check` and `lint` will fail until `dev` has been run once.
+>
+> ```bash
+> git init
+> git add -A && git commit -m "init"
+> pnpm install
+> pnpm dev   # run once before check/lint
+> ```
 
 ## Development
 
