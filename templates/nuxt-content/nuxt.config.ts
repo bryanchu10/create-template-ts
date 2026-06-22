@@ -1,17 +1,15 @@
 import { execSync } from "node:child_process";
 import process from "node:process";
+import { fromThrowable } from "neverthrow";
+import { match } from "ts-pattern";
 
 function gitDate(absPath: string, cwd: string, which: "first" | "last"): string | null {
-    try {
-        const cmd = which === "first"
-            ? `git log --follow --format=%aI -- "${absPath}" | tail -1`
-            : `git log -1 --format=%aI -- "${absPath}"`;
+    const cmd = which === "first"
+        ? `git log --follow --format=%aI -- "${absPath}" | tail -1`
+        : `git log -1 --format=%aI -- "${absPath}"`;
 
-        return execSync(cmd, { encoding: "utf-8", cwd }).trim() || null;
-    }
-    catch {
-        return null;
-    }
+    return fromThrowable(() => execSync(cmd, { encoding: "utf-8", cwd }).trim() || null)()
+        .unwrapOr(null);
 }
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
@@ -19,14 +17,15 @@ export default defineNuxtConfig({
     css: ["@unocss/reset/tailwind-v4.css", "~/assets/main.css"],
     hooks: {
         "content:file:afterParse": function (ctx) {
-            if (!ctx.file.id.endsWith(".md"))
-                return;
+            match(ctx.file.id.endsWith(".md"))
+                .with(true, () => {
+                    const cwd = process.cwd();
+                    const absPath = ctx.file.path;
 
-            const cwd = process.cwd();
-            const absPath = ctx.file.path;
-
-            ctx.content.date ??= gitDate(absPath, cwd, "first");
-            ctx.content.updatedAt ??= gitDate(absPath, cwd, "last");
+                    ctx.content.date ??= gitDate(absPath, cwd, "first");
+                    ctx.content.updatedAt ??= gitDate(absPath, cwd, "last");
+                })
+                .otherwise(() => {});
         },
     },
     content: {
