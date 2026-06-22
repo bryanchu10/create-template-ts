@@ -5,6 +5,7 @@ export interface TemplateConfig {
     readonly devDeps: readonly string[];
     readonly pinnedVersions?: Record<string, string>;
     readonly skipVerify?: true;
+    readonly setupSteps?: readonly string[];
 }
 
 // To add a new template, follow this shape:
@@ -74,6 +75,12 @@ export const TEMPLATES = {
         hint: "Nuxt Content site with i18n, UnoCSS & OKLCH color system",
         withPeerDependencies: false,
         skipVerify: true,
+        setupSteps: [
+            "git init",
+            "git add -A && git commit -m \"init\"  # git log must have ≥1 commit before dev",
+            "pnpm install",
+            "pnpm dev          # generates Nuxt types; run once before check/lint",
+        ],
         deps: [
             "@nuxt/content",
             "@nuxtjs/i18n",

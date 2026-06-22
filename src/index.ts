@@ -87,10 +87,16 @@ void (async () => {
 
                     return safeWriteFileSync(pkgPath, `${JSON.stringify(ordered, null, 4)}\n`);
                 })
-                .map(() => projectName);
+                .map(() => ({ projectName, template }));
         })
         .match(
-            (projectName) => outro(`Done! Run:\n\n  cd ${projectName}\n  pnpm install`),
+            ({ projectName, template }) => {
+                const { setupSteps } = TEMPLATES[template] as TemplateConfig;
+                const steps = (setupSteps ?? ["pnpm install"])
+                    .map(s => `  ${s}`)
+                    .join("\n");
+                outro(`Done! Run:\n\n  cd ${projectName}\n${steps}`);
+            },
             (err) => {
                 cancel(err.message);
                 exit(1);

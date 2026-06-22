@@ -2,10 +2,10 @@
     "type": "module",
     "private": true,
     "scripts": {
+        "dev": "nuxt dev",
         "lint": "eslint",
         "lint:fix": "eslint --fix",
         "check": "nuxt typecheck",
-        "dev": "nuxt dev",
         "build": "nuxt build",
         "generate": "nuxt generate",
         "preview": "nuxt preview"
