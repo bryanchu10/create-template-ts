@@ -33,5 +33,5 @@ export function validateProjectName(value: string | undefined): string | undefin
         [(n) => !n.startsWith("."), "Name cannot start with a dot"],
     ];
 
-    return rules.find(([predicate]) => !predicate(name))?.[1];
+    return rules.find(([predicate]) => name !== "" && !predicate(name))?.[1];
 }
