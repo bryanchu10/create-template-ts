@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.7.0](https://github.com/bryanchu10/create-template-ts/compare/v1.6.2...v1.7.0) (2026-06-22)
+
+### Features
+
+* **nuxt-content:** add neverthrow and ts-pattern for safer control flow ([3c6c656](https://github.com/bryanchu10/create-template-ts/commit/3c6c656a9a76c7f245e88210d3dafd4b0c60fab6))
+* **nuxt-content:** migrate template from Vue SFC to TSX ([301d180](https://github.com/bryanchu10/create-template-ts/commit/301d180f33f114c36e41aac1c91f9c76eb982f86))
+* show template-specific setup steps in outro ([451c785](https://github.com/bryanchu10/create-template-ts/commit/451c785ef707dfc1419324e4b1cb701985491656))
+
+### Bug Fixes
+
+* **prompts:** allow empty input to fall through to defaultValue ([6e49899](https://github.com/bryanchu10/create-template-ts/commit/6e498992ba47d5b8f65de288853ce9d789f2eecd))
+
 ## [1.6.2](https://github.com/bryanchu10/create-template-ts/compare/v1.6.1...v1.6.2) (2026-06-21)
 
 ## [1.6.1](https://github.com/bryanchu10/create-template-ts/compare/v1.6.0...v1.6.1) (2026-06-21)
