@@ -1,4 +1,6 @@
 import type { Collections } from "@nuxt/content";
+import { err, ok } from "neverthrow";
+import { match, P } from "ts-pattern";
 import { ContentRenderer } from "#components";
 
 const collectionMap: Record<string, keyof Collections> = {
@@ -24,16 +26,19 @@ export default defineNuxtComponent({
             const collection = collectionMap[locale.value] ?? "content_en";
             const content = await queryCollection(collection).path(slug.value).first();
 
-            if (!content && locale.value !== "en") {
-                return queryCollection("content_en").path(slug.value).first();
-            }
-
-            return content;
+            return match({ content, locale: locale.value })
+                .with({ content: P.nullish, locale: P.not("en") }, async () =>
+                    queryCollection("content_en").path(slug.value).first())
+                .otherwise(() => content);
         }, { watch: [locale] });
 
-        if (!page.value) {
-            throw createError({ statusCode: 404, statusMessage: "Page not found", fatal: true });
-        }
+        (page.value
+            ? ok(page.value)
+            : err(createError({ statusCode: 404, statusMessage: "Page not found", fatal: true }))
+        ).match(
+            () => {},
+            (e) => { throw e; },
+        );
 
         useSeoMeta({
             ogType: "article",
