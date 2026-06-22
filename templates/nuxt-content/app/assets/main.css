@@ -20,3 +20,28 @@ body {
   background-color: oklch(var(--color-base));
   font-family: var(--font-sans);
 }
+
+pre code .line {
+  display: block;
+}
+
+pre code .line.highlight {
+  background-color: rgb(255 255 255 / 0.08);
+  margin-inline: -1rem;
+  padding-inline: 1rem;
+}
+
+pre.line-numbers code {
+  counter-reset: line;
+}
+
+pre.line-numbers code .line::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 2ch;
+  margin-right: 1.5rem;
+  text-align: right;
+  color: rgb(255 255 255 / 0.25);
+  user-select: none;
+}

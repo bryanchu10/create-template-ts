@@ -69,6 +69,7 @@ export const TEMPLATES = {
             "vitest",
         ],
     },
+
     "nuxt-content": {
         hint: "Nuxt Content site with i18n, UnoCSS & OKLCH color system",
         withPeerDependencies: false,
@@ -87,7 +88,9 @@ export const TEMPLATES = {
             "@unocss/eslint-plugin",
             "@unocss/nuxt",
             "eslint",
+            "typescript",
             "unocss",
+            "vue-tsc",
         ],
     },
 } as const satisfies Record<string, TemplateConfig>;
