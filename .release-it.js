@@ -1,4 +1,7 @@
 export default {
+    hooks: {
+        "before:init": "pnpm run build",
+    },
     git: {
         // eslint-disable-next-line no-template-curly-in-string
         commitMessage: "chore: release ${version}",
