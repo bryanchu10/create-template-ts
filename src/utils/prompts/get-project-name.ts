@@ -27,7 +27,7 @@ export function getProjectName(): ResultAsync<string, Error> {
 }
 
 export function validateProjectName(value: string | undefined): string | undefined {
-    const name = value ?? "";
+    const name = (value ?? "").trim();
     const rules: Array<[(n: string) => boolean, string]> = [
         [(n) => /^[a-z0-9][a-z0-9-_]*$/.test(n), "Only lowercase letters, numbers, hyphens, and underscores"],
         [(n) => !n.startsWith("."), "Name cannot start with a dot"],
