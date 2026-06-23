@@ -124,7 +124,7 @@ export function createUserRouter(service: UserService) {
     const router = new OpenAPIHono({
         defaultHook(result, c) {
             if (!result.success) {
-                const message = result.error.issues.map(i => i.message).join(", ");
+                const message = result.error.issues.map((i) => i.message).join(", ");
 
                 return c.json({ message }, 422);
             }

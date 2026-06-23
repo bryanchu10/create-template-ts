@@ -11,7 +11,7 @@ export function createApp(dbOverride?: DB) {
         defaultHook(result, c) {
             if (!result.success) {
                 const message = result.error.issues
-                    .map(i => i.message)
+                    .map((i) => i.message)
                     .join(", ");
 
                 return c.json({ message }, 422);
