@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.7.5](https://github.com/bryanchu10/create-template-ts/compare/v1.7.4...v1.7.5) (2026-06-25)
+
+### Bug Fixes
+
+* **nuxt-content:** replace pis-* with ps-* in Prose components ([1ac4df9](https://github.com/bryanchu10/create-template-ts/commit/1ac4df90f9dcb9ba6ffca1907a0802c854a68bbb))
+
 ## [1.7.4](https://github.com/bryanchu10/create-template-ts/compare/v1.7.3...v1.7.4) (2026-06-25)
 
 ## [1.7.3](https://github.com/bryanchu10/create-template-ts/compare/v1.7.2...v1.7.3) (2026-06-24)
