@@ -2,7 +2,10 @@ import { NuxtLink, NuxtLinkLocale } from "#components";
 
 export default defineComponent({
     props: {
-        href: { type: String, required: true as const },
+        href: {
+            type: String,
+            required: true,
+        },
     },
     setup(props, { slots }) {
         const isExternal = computed(() => /^https?:\/\//.test(props.href));

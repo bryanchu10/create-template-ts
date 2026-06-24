@@ -1,6 +1,9 @@
 export default defineComponent({
     props: {
-        src: { type: String, required: true as const },
+        src: {
+            type: String,
+            required: true,
+        },
         alt: String,
     },
     setup(props) {
