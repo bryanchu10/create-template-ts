@@ -1,8 +1,10 @@
 :root {
-  /* Base 70% */
-  --color-base:         0.13 0.022 123;
-  --color-base-subtle:  0.19 0.025 123;
-  --color-base-muted:   0.26 0.028 123;
+  color-scheme: dark;
+
+  /* Surface 70% */
+  --color-surface:        0.13 0.022 123;
+  --color-surface-subtle: 0.19 0.025 123;
+  --color-surface-muted:  0.32 0.028 123;
 
   /* Primary 25% */
   --color-primary:      0.83 0.07 123;
@@ -17,7 +19,7 @@
 
 body {
   color: oklch(var(--color-primary-dim));
-  background-color: oklch(var(--color-base));
+  background-color: oklch(var(--color-surface));
   font-family: var(--font-sans);
 }
 

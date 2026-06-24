@@ -31,7 +31,7 @@ export default defineComponent({
                     {copied.value ? t("prose.copied") : t("prose.copy")}
                 </button>
                 <pre class={[
-                    "text-sm font-mono p-4 rounded bg-base-subtle overflow-x-auto",
+                    "text-sm font-mono p-4 rounded bg-surface-subtle overflow-x-auto",
                     props.class,
                     showLineNumbers.value && "line-numbers",
                 ].filter(Boolean).join(" ")}

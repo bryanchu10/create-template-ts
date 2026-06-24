@@ -52,7 +52,7 @@ export default defineNuxtComponent({
             <section class="px-8">
                 {page.value && (
                     <ContentRenderer
-                        class="bg-base"
+                        class="bg-surface"
                         value={page.value}
                         tag="article"
                     />

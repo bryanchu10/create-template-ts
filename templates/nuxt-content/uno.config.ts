@@ -13,10 +13,10 @@ export default defineConfig({
     ],
     theme: {
         colors: {
-            base: {
-                DEFAULT: "oklch(var(--color-base))",
-                subtle: "oklch(var(--color-base-subtle))",
-                muted: "oklch(var(--color-base-muted))",
+            surface: {
+                DEFAULT: "oklch(var(--color-surface))",
+                subtle: "oklch(var(--color-surface-subtle))",
+                muted: "oklch(var(--color-surface-muted))",
             },
             primary: {
                 DEFAULT: "oklch(var(--color-primary))",
