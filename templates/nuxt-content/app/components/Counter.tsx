@@ -13,12 +13,23 @@ export default defineComponent({
 
         return () => (
             <div class="mbe-2 p-3 border border-primary inline-block">
-                <span class="text-primary mbe-2 block">{t("counter.title")}: {count.value}</span>
+                <span class="text-primary mbe-2 block">
+                    {t("counter.title")}
+                    :
+                    {" "}
+                    {count.value}
+                </span>
                 <div class="flex gap-2">
-                    <button class="text-primary px-2 py-1 border" onClick={increment}>
+                    <button
+                        class="text-primary px-2 py-1 border"
+                        onClick={increment}
+                    >
                         {t("counter.increment")}
                     </button>
-                    <button class="text-primary px-2 py-1 border" onClick={decrement}>
+                    <button
+                        class="text-primary px-2 py-1 border"
+                        onClick={decrement}
+                    >
                         {t("counter.decrement")}
                     </button>
                 </div>

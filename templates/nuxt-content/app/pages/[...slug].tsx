@@ -50,7 +50,13 @@ export default defineNuxtComponent({
 
         return () => (
             <section class="px-8">
-                {page.value && <ContentRenderer class="bg-base" tag="article" value={page.value} />}
+                {page.value && (
+                    <ContentRenderer
+                        class="bg-base"
+                        value={page.value}
+                        tag="article"
+                    />
+                )}
             </section>
         );
     },

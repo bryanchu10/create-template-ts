@@ -11,10 +11,9 @@ export default antfu(
             braceStyle: "stroustrup",
             semi: true,
             overrides: {
-                "style/jsx-one-expression-per-line": ["error", { allow: "non-jsx" }],
-                "style/jsx-first-prop-new-line": ["error", "never"],
-                "style/jsx-max-props-per-line": "off",
-                "style/jsx-closing-bracket-location": ["error", "after-props"],
+                "style/jsx-first-prop-new-line": ["error", "multiprop"],
+                "style/jsx-max-props-per-line": ["error", { maximum: 1, when: "multiline" }],
+                "style/jsx-closing-bracket-location": ["error", "line-aligned"],
                 "style/operator-linebreak": ["error", "before", { overrides: { "=": "after" } }],
                 "style/padding-line-between-statements": [
                     "error",
@@ -46,6 +45,66 @@ export default antfu(
         files: ["**/*.yml", "**/*.yaml"],
         rules: {
             "yaml/indent": ["error", 2],
+        },
+    },
+    {
+        files: ["**/*.tsx", "**/*.jsx"],
+        rules: {
+            "perfectionist/sort-jsx-props": ["error", {
+                type: "alphabetical",
+                order: "asc",
+                ignoreCase: true,
+                groups: [
+                    "definition",
+                    "unique",
+                    "global",
+                    "two-way",
+                    "other-directives",
+                    "attr",
+                    "unknown",
+                    "attr-bool",
+                    "events",
+                    "content",
+                ],
+                customGroups: [
+                    {
+                        groupName: "definition",
+                        elementNamePattern: "^is$",
+                    },
+                    {
+                        groupName: "unique",
+                        elementNamePattern: "^(key|ref)$",
+                    },
+                    {
+                        groupName: "global",
+                        elementNamePattern: "^id$",
+                    },
+                    {
+                        groupName: "two-way",
+                        elementNamePattern: "^(modelValue|v-model.*|onUpdate:.+)$",
+                    },
+                    {
+                        groupName: "other-directives",
+                        elementNamePattern: "^v-(?!model|slots)",
+                    },
+                    {
+                        groupName: "attr",
+                        elementNamePattern: "^(class|className|style|for|htmlFor|lang|type|name|value|src|srcset|href|rel|target|alt|title|placeholder|role|tabIndex|aria-.+|data-.+)$",
+                    },
+                    {
+                        groupName: "attr-bool",
+                        elementNamePattern: "^(disabled|required|readonly|checked|selected|multiple|autofocus|autoplay|controls|loop|muted|open|hidden|async|defer|allowfullscreen|default|download|formnovalidate|ismap|nomodule|novalidate|reversed|scoped)$",
+                    },
+                    {
+                        groupName: "events",
+                        elementNamePattern: "^on[A-Z]",
+                    },
+                    {
+                        groupName: "content",
+                        elementNamePattern: "^(innerHTML|textContent|dangerouslySetInnerHTML|v-slots)$",
+                    },
+                ],
+            }],
         },
     },
 );

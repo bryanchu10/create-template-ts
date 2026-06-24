@@ -11,13 +11,27 @@ export default defineComponent({
         });
 
         return () => (
-            <Html lang={head.value.htmlAttrs?.lang} dir={head.value.htmlAttrs?.dir}>
+            <Html
+                lang={head.value.htmlAttrs?.lang}
+                dir={head.value.htmlAttrs?.dir}
+            >
                 <Head>
-                    {head.value.link?.map(link => (
-                        <Link key={link.key} id={link.key} rel={link.rel} href={link.href} hreflang={link.hreflang} />
+                    {head.value.link?.map((link) => (
+                        <Link
+                            key={link.key}
+                            id={link.key}
+                            href={link.href}
+                            rel={link.rel}
+                            hreflang={link.hreflang}
+                        />
                     ))}
-                    {head.value.meta?.map(meta => (
-                        <Meta key={meta.key} id={meta.key} property={meta.property} content={meta.content} />
+                    {head.value.meta?.map((meta) => (
+                        <Meta
+                            key={meta.key}
+                            id={meta.key}
+                            content={meta.content}
+                            property={meta.property}
+                        />
                     ))}
                 </Head>
                 <Body>

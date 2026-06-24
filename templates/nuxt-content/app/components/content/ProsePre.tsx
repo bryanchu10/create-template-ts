@@ -24,14 +24,18 @@ export default defineComponent({
 
         return () => (
             <div class="mbe-4 relative">
-                <button class="text-xs text-primary-dim transition-colors right-3 top-3 absolute hover:text-primary" onClick={() => void copy()}>
+                <button
+                    class="text-xs text-primary-dim transition-colors right-3 top-3 absolute hover:text-primary"
+                    onClick={() => void copy()}
+                >
                     {copied.value ? t("prose.copied") : t("prose.copy")}
                 </button>
                 <pre class={[
                     "text-sm font-mono p-4 rounded bg-base-subtle overflow-x-auto",
                     props.class,
                     showLineNumbers.value && "line-numbers",
-                ].filter(Boolean).join(" ")}>
+                ].filter(Boolean).join(" ")}
+                >
                     {slots.default?.()}
                 </pre>
             </div>
