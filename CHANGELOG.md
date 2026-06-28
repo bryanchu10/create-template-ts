@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.7.8](https://github.com/bryanchu10/create-template-ts/compare/v1.7.7...v1.7.8) (2026-06-28)
+
+### Bug Fixes
+
+* **nuxt-content:** use native <a> for external links in ProseA ([5d02117](https://github.com/bryanchu10/create-template-ts/commit/5d0211715b918fe46020393bded5b636a5be2670))
+
 ## [1.7.7](https://github.com/bryanchu10/create-template-ts/compare/v1.7.6...v1.7.7) (2026-06-28)
 
 ## [1.7.6](https://github.com/bryanchu10/create-template-ts/compare/v1.7.5...v1.7.6) (2026-06-28)

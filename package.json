@@ -1,7 +1,7 @@
 {
     "name": "@hosaki/create-template-ts",
     "type": "module",
-    "version": "1.7.7",
+    "version": "1.7.8",
     "description": "Scaffold a modular TypeScript project for scripts and tooling",
     "author": "Bryan Chu <bryanchu10@gmail.com> (https://github.com/bryanchu10)",
     "license": "MIT",
