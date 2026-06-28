@@ -1,4 +1,4 @@
-import { NuxtLink, NuxtLinkLocale } from "#components";
+import { NuxtLinkLocale } from "#components";
 
 export default defineComponent({
     props: {
