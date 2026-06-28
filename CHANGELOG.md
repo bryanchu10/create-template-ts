@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.7.9](https://github.com/bryanchu10/create-template-ts/compare/v1.7.8...v1.7.9) (2026-06-28)
+
+### Bug Fixes
+
+* **nuxt-content:** remove unused NuxtLink import from ProseA ([6f59c77](https://github.com/bryanchu10/create-template-ts/commit/6f59c77e64a56c50219a01d65b6387711e248af8))
+
 ## [1.7.8](https://github.com/bryanchu10/create-template-ts/compare/v1.7.7...v1.7.8) (2026-06-28)
 
 ### Bug Fixes
