@@ -12,14 +12,14 @@ export default defineComponent({
 
         return () => isExternal.value
             ? (
-                    <NuxtLink
+                    <a
                         class="text-accent underline underline-offset-2 transition-colors hover:text-accent-hover"
+                        href={props.href}
                         rel="noopener noreferrer"
                         target="_blank"
-                        to={props.href}
                     >
                         {slots.default?.()}
-                    </NuxtLink>
+                    </a>
                 )
             : (
                     <NuxtLinkLocale
