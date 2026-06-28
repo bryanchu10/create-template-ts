@@ -14,6 +14,11 @@ function gitDate(absPath: string, cwd: string, which: "first" | "last"): string 
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+    vite: {
+        vueJsx: {
+            defineComponentName: ["defineComponent", "defineNuxtComponent"],
+        },
+    },
     css: ["@unocss/reset/tailwind-v4.css", "~/assets/main.css"],
     hooks: {
         "content:file:afterParse": function (ctx) {
@@ -50,9 +55,9 @@ export default defineNuxtConfig({
             { code: "zh-TW", name: "繁體中文", language: "zh-TW", dir: "ltr", file: "zh-TW.json" },
         ],
         langDir: "locales",
-        strategy: "prefix",
+        strategy: "prefix_except_default",
         defaultLocale: "en",
-
+        detectBrowserLanguage: false,
     },
     routeRules: {
         "/": { redirect: { to: "/en", statusCode: 301 } },
