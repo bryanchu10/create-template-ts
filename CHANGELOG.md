@@ -1,5 +1,7 @@
 # Changelog
 
+## [1.7.7](https://github.com/bryanchu10/create-template-ts/compare/v1.7.6...v1.7.7) (2026-06-28)
+
 ## [1.7.6](https://github.com/bryanchu10/create-template-ts/compare/v1.7.5...v1.7.6) (2026-06-28)
 
 ### Bug Fixes
