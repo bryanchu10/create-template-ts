@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.7.6](https://github.com/bryanchu10/create-template-ts/compare/v1.7.5...v1.7.6) (2026-06-28)
+
+### Bug Fixes
+
+* **nuxt-content:** update i18n config and enable HMR for defineNuxtComponent ([1f1e11d](https://github.com/bryanchu10/create-template-ts/commit/1f1e11d09924d1e1aa234ed31cce26e3bd62a992))
+
 ## [1.7.5](https://github.com/bryanchu10/create-template-ts/compare/v1.7.4...v1.7.5) (2026-06-25)
 
 ### Bug Fixes
