@@ -109,4 +109,10 @@ export default antfu(
             }],
         },
     },
+    {
+        files: ["**/*.md/**"],
+        rules: {
+            "ts/consistent-type-definitions": "off",
+        },
+    },
 );
